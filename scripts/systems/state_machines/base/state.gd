@@ -1,9 +1,9 @@
-@abstract
 class_name State
 extends Node
 ## Template for states
 
-var state_machine: StateMachine = get_parent()
+
+@export var state_machine: StateMachine
 
 
 func update(delta: float) -> void:

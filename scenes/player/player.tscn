@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://cf8cp7qd2aamx"]
 
 [ext_resource type="Script" uid="uid://bqsnh21fed01d" path="res://scripts/player/player.gd" id="1_8afob"]
+[ext_resource type="Script" uid="uid://bln7r7bllxk8p" path="res://scripts/components/health_component.gd" id="2_75vfm"]
+[ext_resource type="Script" uid="uid://c7ue86ob1yk04" path="res://scripts/systems/state_machines/player/player_state_machine.gd" id="2_p47bc"]
+[ext_resource type="Script" uid="uid://bwtu1yst5qy4o" path="res://scripts/systems/state_machines/player/idle_player_state.gd" id="3_75vfm"]
+[ext_resource type="Script" uid="uid://qn644bshd6ci" path="res://scripts/systems/state_machines/player/move_player_state.gd" id="4_0owmy"]
+[ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/systems/state_machines/player/airborne_player_state.gd" id="5_qek5x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x7p2l"]
 
@@ -10,12 +15,50 @@
 script = ExtResource("1_8afob")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=149652403]
+unique_name_in_owner = true
 shape = SubResource("CapsuleShape3D_x7p2l")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1298703141]
+unique_name_in_owner = true
 mesh = SubResource("CapsuleMesh_8afob")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=959529958]
+[node name="CameraPivot" type="Node3D" parent="." unique_id=2133407630]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=959529958]
+unique_name_in_owner = true
 fov = 90.0
+
+[node name="InteractionRay" type="RayCast3D" parent="CameraPivot" unique_id=422886467]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -3)
+
+[node name="Components" type="Node" parent="." unique_id=1305276591]
+unique_name_in_owner = true
+
+[node name="HealthComponent" type="Node" parent="Components" unique_id=1404851935]
+unique_name_in_owner = true
+script = ExtResource("2_75vfm")
+metadata/_custom_type_script = "uid://bln7r7bllxk8p"
+
+[node name="PlayerStateMachine" type="Node" parent="." unique_id=824043323 node_paths=PackedStringArray("player", "initial_state")]
+script = ExtResource("2_p47bc")
+player = NodePath("..")
+initial_state = NodePath("IdlePlayerState")
+metadata/_custom_type_script = "uid://c7ue86ob1yk04"
+
+[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" unique_id=646628208 node_paths=PackedStringArray("state_machine")]
+script = ExtResource("3_75vfm")
+state_machine = NodePath("..")
+metadata/_custom_type_script = "uid://dsdcsxxnumvnh"
+
+[node name="MovePlayerState" type="Node" parent="PlayerStateMachine" unique_id=95033732 node_paths=PackedStringArray("state_machine")]
+script = ExtResource("4_0owmy")
+state_machine = NodePath("..")
+metadata/_custom_type_script = "uid://dsdcsxxnumvnh"
+
+[node name="AirbornePlayerState" type="Node" parent="PlayerStateMachine" unique_id=1496415969 node_paths=PackedStringArray("state_machine")]
+script = ExtResource("5_qek5x")
+state_machine = NodePath("..")
+metadata/_custom_type_script = "uid://dsdcsxxnumvnh"

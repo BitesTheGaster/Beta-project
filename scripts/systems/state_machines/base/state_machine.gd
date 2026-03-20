@@ -1,9 +1,10 @@
-@abstract
 class_name StateMachine
 extends Node
 ## Template for state machines
 
+
 @export var initial_state: State
+@export var debug_enabled: bool = false
 
 var current_state: State
 var states: Dictionary[String, State]
@@ -29,12 +30,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func change_state(new_state: String):
-	#var from: String = current_state.name
-	#var to: String = states[new_state].name
-	#print(from+" -> "+to)
 	if not states.has(new_state):
 		push_error("State not found: " + new_state)
 		return
+	
+	if debug_enabled:
+		print("[StateMachine] "+current_state.name+" -> "+states[new_state].name)
+	
 	current_state.exit()
 	current_state = states[new_state]
 	current_state.enter()
