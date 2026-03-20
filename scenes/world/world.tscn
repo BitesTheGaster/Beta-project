@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cr506mjh6h1ve"]
+
+[ext_resource type="MeshLibrary" uid="uid://cfyttimjwltdl" path="res://scenes/world/mesh_libraries/wasteland.tres" id="1_1fp7r"]
+[ext_resource type="Environment" uid="uid://cc5q0ubndg2rk" path="res://resourses/environments/world_environment.tres" id="1_dphjl"]
+[ext_resource type="PackedScene" uid="uid://cf8cp7qd2aamx" path="res://scenes/player/player.tscn" id="3_1fp7r"]
+[ext_resource type="Texture2D" uid="uid://blgmp3x02eong" path="res://epst.png" id="5_v5dby"]
+
+[node name="World" type="Node3D" unique_id=691141520]
+
+[node name="GridMap" type="GridMap" parent="." unique_id=1692067014]
+mesh_library = ExtResource("1_1fp7r")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(-131073, 65535, 0, -131073, 0, 0, -196608, 0, 0, -196608, 65535, 0, -196608, 65534, 0, -131073, 65534, 0, -131074, 65535, 0, -131074, 0, 0, -131074, 1, 0, -131073, 1, 0, -196608, 1, 0, -196607, 1, 0, -196607, 0, 0, -196607, 65535, 0, -131074, 65534, 0, -196607, 65534, 0, -131075, 65534, 0, -131076, 65534, 0, -131076, 65535, 0, -131076, 0, 0, -131075, 0, 0, -131075, 65535, 0, -131075, 1, 0, -131076, 1, 0, -196606, 1, 0, -196606, 0, 0, -196606, 65535, 0, -196606, 65534, 0, -196605, 1, 0, -196605, 0, 0, -196605, 65535, 0, -196605, 65534, 0, -196605, 65533, 0, -196605, 2, 0, -196607, 2, 0, -196608, 2, 0, -131073, 2, 0, -131074, 2, 0, -131076, 2, 0, -131076, 65533, 0, -131074, 65533, 0, -131073, 65533, 0, -196608, 65533, 0, -196607, 65533, 0, -131076, 3, 0, -131075, 3, 0, -131074, 3, 0, -131073, 3, 0, -196608, 3, 0, -196607, 3, 0, -196606, 3, 0, -196605, 3, 0, -196606, 65532, 0, -131075, 65532, 0, -131074, 65532, 0, -131073, 65532, 0, -196608, 65532, 0, -196607, 65532, 0, -131076, 65532, 0, -131075, 65533, 0, -196606, 65533, 0, -196606, 2, 0, -131075, 2, 0, -65540, 65532, 0, -65540, 65533, 0, -65540, 65534, 0, -65540, 65535, 0, -65540, 0, 0, -65540, 1, 0, -65540, 2, 0, -65540, 3, 0, -65539, 3, 0, -65538, 3, 0, -65537, 3, 0, -131072, 3, 0, -131071, 3, 0, -131070, 3, 0, -131069, 3, 0, -131069, 2, 0, -131069, 1, 0, -131069, 0, 0, -131069, 65535, 0, -131072, 65532, 0, -65537, 65532, 0, -65538, 65532, 0, -65539, 65532, 0, -4, 3, 0, -4, 2, 0, -4, 1, 0, -3, 3, 0, -2, 3, 0, 65532, 3, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=112923818]
+environment = ExtResource("1_dphjl")
+
+[node name="LightmapGI" type="LightmapGI" parent="." unique_id=780484468]
+
+[node name="Player" parent="." unique_id=1196062079 instance=ExtResource("3_1fp7r")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2022238401]
+transform = Transform3D(1, 0, 0, 0, -0.70710677, 0.70710677, 0, -0.70710677, -0.70710677, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1727124213]
+transform = Transform3D(0.4, 0, 0, 0, 0.35, 0, 0, 0, 1, 0, 0, 4)
+texture = ExtResource("5_v5dby")
