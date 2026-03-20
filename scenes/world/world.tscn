@@ -2,10 +2,11 @@
 
 [ext_resource type="MeshLibrary" uid="uid://cfyttimjwltdl" path="res://scenes/world/mesh_libraries/wasteland.tres" id="1_1fp7r"]
 [ext_resource type="Environment" uid="uid://cc5q0ubndg2rk" path="res://resourses/environments/world_environment.tres" id="1_dphjl"]
-[ext_resource type="PackedScene" uid="uid://cf8cp7qd2aamx" path="res://scenes/player/player.tscn" id="3_1fp7r"]
+[ext_resource type="Script" uid="uid://bsoy6bs3iriyt" path="res://scripts/world/world.gd" id="1_v5dby"]
 [ext_resource type="Texture2D" uid="uid://blgmp3x02eong" path="res://epst.png" id="5_v5dby"]
 
 [node name="World" type="Node3D" unique_id=691141520]
+script = ExtResource("1_v5dby")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=1692067014]
 mesh_library = ExtResource("1_1fp7r")
@@ -20,12 +21,11 @@ environment = ExtResource("1_dphjl")
 
 [node name="LightmapGI" type="LightmapGI" parent="." unique_id=780484468]
 
-[node name="Player" parent="." unique_id=1196062079 instance=ExtResource("3_1fp7r")]
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2022238401]
 transform = Transform3D(1, 0, 0, 0, -0.70710677, 0.70710677, 0, -0.70710677, -0.70710677, 0, 0, 0)
 shadow_enabled = true
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1727124213]
 transform = Transform3D(0.4, 0, 0, 0, 0.35, 0, 0, 0, 1, 0, 0, 4)
+visible = false
 texture = ExtResource("5_v5dby")

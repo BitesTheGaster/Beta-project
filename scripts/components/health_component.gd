@@ -16,3 +16,8 @@ func take_damage(amount: float) -> void:
 	health_changed.emit(current_health, max_health)
 	if current_health <= 0:
 		died.emit()
+
+
+@rpc("authority", "call_remote", "reliable")
+func request_damage(amount: float) -> void:
+	take_damage(amount)

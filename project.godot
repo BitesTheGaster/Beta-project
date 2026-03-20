@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Silicon echoes"
-run/main_scene="uid://cr506mjh6h1ve"
+run/main_scene="uid://cmsmryodib7w7"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+NetworkManager="*uid://dgdbxlur4lqx8"
 
 [display]
 
