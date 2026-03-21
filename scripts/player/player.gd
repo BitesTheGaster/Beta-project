@@ -8,6 +8,7 @@ signal player_died()
 
 var stats: PlayerStats = preload("res://resourses/stats/player_default_stats.tres")
 var is_local: bool = true
+var target_positiom := Vector3.ZERO
 
 @onready var camera: Camera3D = %Camera3D
 @onready var camera_pivot: Node3D = %CameraPivot
@@ -19,10 +20,12 @@ var is_local: bool = true
 
 
 func _ready() -> void:
-	if is_local:
-		camera.current = true
-		for mesh in meshes:
-			mesh.set_layer_mask_value(1, false)
+	pass
+
+
+func _process(delta: float) -> void:
+	if not is_local:
+		global_position = global_position.lerp(target_positiom, 0.33)
 
 
 func _unhandled_input(event: InputEvent) -> void:

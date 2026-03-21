@@ -54,7 +54,6 @@ metadata/_custom_type_script = "uid://bln7r7bllxk8p"
 [node name="NetworkSyncComponent" type="Node" parent="Components" unique_id=313107359 node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 script = ExtResource("3_0owmy")
-sync_rate = null
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://cjia3eonx82an"
 

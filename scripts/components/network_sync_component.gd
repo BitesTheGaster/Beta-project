@@ -15,6 +15,7 @@ func _ready() -> void:
 	is_local = get_multiplayer_authority() == multiplayer.get_unique_id()
 	
 	if not is_local:
+		await get_tree().process_frame
 		_disable_input()
 
 
@@ -34,16 +35,14 @@ func _sync_position() -> void:
 
 @rpc("any_peer", "call_remote", "reliable")
 func _rpc_sync_position(pos: Vector3, rot: Vector3, camera_pivot_rot: Vector3) -> void:
-	player.global_position = pos
+	player.target_positiom = pos
 	player.rotation = rot
 	player.camera_pivot.rotation = camera_pivot_rot
 
 
 func _disable_input() -> void:
 	player.is_local = false
-	player.process_mode = Node.PROCESS_MODE_DISABLED
-	player.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+	#player.process_mode = Node.PROCESS_MODE_DISABLED
+	#player.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	
-	var camera = get_parent().find_child("Camera3D", true, false) as Camera3D
-	if camera:
-		camera.current = false
+	player.camera.current = false

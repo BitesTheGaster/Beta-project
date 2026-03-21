@@ -1,3 +1,4 @@
+class_name GameWorld
 extends Node3D
 ## Game world
 
@@ -55,10 +56,16 @@ func _spawn_player(id: int, player_position: Vector3 = Vector3.ZERO) -> void:
 	
 	if id == multiplayer.get_unique_id():
 		local_player = player
+		player.camera.current = true
+		for mesh in player.meshes:
+			mesh.set_layer_mask_value(1, false)
 		print("[GameWorld] Local player spawned: " + str(id))
+	else:
+		print("[GameWorld] Player spawned: " + str(id))
 
 
 @rpc("authority", "call_local", "reliable")
 func _delete_player(id: int):
 	spawned_players[id].queue_free()
 	spawned_players.erase(id)
+	print("[GameWorld] Player deleted: " + str(id))
