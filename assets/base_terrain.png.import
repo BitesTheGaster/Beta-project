@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf8kcq1r34y8t"
-path.s3tc="res://.godot/imported/ground.png-4c422d7ca1486b6372809e61e346aea1.s3tc.ctex"
+uid="uid://d3hu28iyrwndr"
+path.s3tc="res://.godot/imported/base_terrain.png-ca8d3be84247f472eea7a1ccced54f09.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/wasteland/ground.png"
-dest_files=["res://.godot/imported/ground.png-4c422d7ca1486b6372809e61e346aea1.s3tc.ctex"]
+source_file="res://assets/base_terrain.png"
+dest_files=["res://.godot/imported/base_terrain.png-ca8d3be84247f472eea7a1ccced54f09.s3tc.ctex"]
 
 [params]
 

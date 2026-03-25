@@ -13,5 +13,5 @@ func _ready() -> void:
 func _on_world_entered():
 	main_menu.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	var world = world_scene.instantiate()
+	var world: GameWorld = world_scene.instantiate()
 	add_child(world)

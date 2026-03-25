@@ -1,18 +1,42 @@
 [gd_scene format=3 uid="uid://c7d3mrj6h6bqu"]
 
 [ext_resource type="Script" uid="uid://c2geb74d6ffse" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
+[ext_resource type="Shader" uid="uid://38x6b4iyu25v" path="res://shaders/ui/main_menu.gdshader" id="2_fe2o3"]
+
+[sub_resource type="Gradient" id="Gradient_fe2o3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1g8jr"]
+noise_type = 3
+fractal_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m1kxf"]
+noise = SubResource("FastNoiseLite_1g8jr")
+color_ramp = SubResource("Gradient_fe2o3")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1g8jr"]
+shader = ExtResource("2_fe2o3")
+shader_parameter/noise = SubResource("NoiseTexture2D_m1kxf")
+shader_parameter/speed = 0.2
+shader_parameter/dark = Vector3(0.8, 0.663, 0.431)
+shader_parameter/mid = Vector3(0.91, 0.796, 0.51)
+shader_parameter/light = Vector3(0.984, 0.918, 0.639)
+shader_parameter/dark_chance = 0.5469
+shader_parameter/mid_chance = 0.3857
+shader_parameter/light_chance = 0.0674
 
 [node name="MainMenu" type="CanvasLayer" unique_id=255663231]
 script = ExtResource("1_sl1te")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1026127037]
+material = SubResource("ShaderMaterial_1g8jr")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-color = Color(0.72156864, 0.65882355, 0.5411765, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1604927468]
 anchors_preset = 8

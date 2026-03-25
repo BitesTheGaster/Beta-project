@@ -1,0 +1,56 @@
+[gd_resource type="VoxelGeneratorGraph" format=3 uid="uid://6oyq7qri4r84"]
+
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_6m72w"]
+
+[resource]
+graph_data = {
+"connections": [[1, 0, 8, 0], [3, 0, 8, 1], [11, 0, 12, 0], [12, 0, 13, 2], [13, 0, 6, 0], [2, 0, 12, 1], [8, 0, 11, 0]],
+"nodes": {
+"1": {
+"auto_connect": false,
+"gui_position": Vector2(432, 64),
+"type": "InputX"
+},
+"11": {
+"auto_connect": false,
+"b": 10.0,
+"gui_position": Vector2(736, 64),
+"type": "Multiply"
+},
+"12": {
+"auto_connect": false,
+"gui_position": Vector2(912, 64),
+"type": "Add"
+},
+"13": {
+"a": 1.0,
+"auto_connect": false,
+"b": 0.0,
+"gui_position": Vector2(1088, 16),
+"threshold": 0.0,
+"type": "Select"
+},
+"2": {
+"auto_connect": false,
+"gui_position": Vector2(784, 192),
+"type": "InputY"
+},
+"3": {
+"auto_connect": false,
+"gui_position": Vector2(432, 160),
+"type": "InputZ"
+},
+"6": {
+"auto_connect": false,
+"gui_position": Vector2(1296, 16),
+"type": "OutputType"
+},
+"8": {
+"auto_connect": true,
+"gui_position": Vector2(560, 64),
+"noise": SubResource("ZN_FastNoiseLite_6m72w"),
+"type": "FastNoise2D"
+}
+},
+"version": 2
+}

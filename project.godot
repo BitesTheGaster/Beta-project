@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Silicon echoes"
 run/main_scene="uid://cmsmryodib7w7"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.6", "Double Precision", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -34,6 +34,10 @@ folder_colors={
 "res://scenes/": "teal",
 "res://scripts/": "blue"
 }
+
+[global_group]
+
+Player=""
 
 [input]
 
@@ -101,3 +105,4 @@ sprint={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+anti_aliasing/quality/msaa_3d=1

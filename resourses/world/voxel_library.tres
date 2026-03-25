@@ -1,0 +1,7 @@
+[gd_resource type="VoxelBlockyLibrary" format=3 uid="uid://dot0i58xdaopq"]
+
+[ext_resource type="VoxelBlockyModelEmpty" uid="uid://b644m3ryclfco" path="res://resourses/world/blocks/air.tres" id="1_myutl"]
+[ext_resource type="VoxelBlockyModelCube" uid="uid://pyfww45bnf5c" path="res://resourses/world/blocks/sand.tres" id="2_dxldg"]
+
+[resource]
+models = Array[VoxelBlockyModel]([ExtResource("1_myutl"), ExtResource("2_dxldg")])

@@ -3,15 +3,19 @@ extends Node3D
 ## Game world
 
 
+const PLAYER_SPAWN_POS: Vector3 = Vector3(0, 32, 0)
+
 var local_player: Player
 var spawned_players: Dictionary[int, Player] = {}
 
 @onready var player_scene = preload("res://scenes/player/player.tscn")
+@onready var voxel_viewer: VoxelViewer = %VoxelViewer
+@onready var voxel_lod_terrain: VoxelLodTerrain = %VoxelLodTerrain
 
 
 func _ready() -> void:
 	if NetworkManager.is_server:
-		_spawn_player.rpc(multiplayer.get_unique_id())
+		_spawn_player(multiplayer.get_unique_id())
 	
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
@@ -40,12 +44,12 @@ func _on_peer_disconnected(id: int):
 
 
 @rpc("authority", "call_local", "reliable")
-func _spawn_player(id: int, player_position: Vector3 = Vector3.ZERO) -> void:
+func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void:
 	if id in spawned_players:
 		return
 	
 	var player = player_scene.instantiate()
-	player.position = Vector3.ZERO
+	player.position = player_position
 	
 	player.set_multiplayer_authority(id)
 	
@@ -60,6 +64,7 @@ func _spawn_player(id: int, player_position: Vector3 = Vector3.ZERO) -> void:
 		for mesh in player.meshes:
 			mesh.set_layer_mask_value(1, false)
 		print("[GameWorld] Local player spawned: " + str(id))
+		voxel_viewer.target = local_player
 	else:
 		print("[GameWorld] Player spawned: " + str(id))
 

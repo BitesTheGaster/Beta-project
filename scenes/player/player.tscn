@@ -7,15 +7,20 @@
 [ext_resource type="Script" uid="uid://bwtu1yst5qy4o" path="res://scripts/systems/state_machines/player/idle_player_state.gd" id="3_75vfm"]
 [ext_resource type="Script" uid="uid://qn644bshd6ci" path="res://scripts/systems/state_machines/player/move_player_state.gd" id="4_0owmy"]
 [ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/systems/state_machines/player/airborne_player_state.gd" id="5_qek5x"]
+[ext_resource type="Texture2D" uid="uid://blgmp3x02eong" path="res://epst.png" id="8_qek5x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x7p2l"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qek5x"]
+albedo_texture = ExtResource("8_qek5x")
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8afob"]
+material = SubResource("StandardMaterial3D_qek5x")
 
 [sub_resource type="BoxMesh" id="BoxMesh_0owmy"]
 size = Vector3(0.2, 0.2, 0.5)
 
-[node name="Player" type="CharacterBody3D" unique_id=1196062079]
+[node name="Player" type="CharacterBody3D" unique_id=1196062079 groups=["Player"]]
 script = ExtResource("1_8afob")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=149652403]
@@ -24,6 +29,7 @@ shape = SubResource("CapsuleShape3D_x7p2l")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=1298703141]
 unique_name_in_owner = true
+transform = Transform3D(-1, 0, 1.2246467991473532e-16, 0, 1, 0, -1.2246467991473532e-16, 0, -1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_8afob")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=2133407630]
