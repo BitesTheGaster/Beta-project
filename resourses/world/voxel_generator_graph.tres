@@ -2,52 +2,115 @@
 
 [sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_6m72w"]
 
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_chaa6"]
+period = 256.0001
+
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_nbjel"]
+period = 0.0001
+
 [resource]
 graph_data = {
-"connections": [[1, 0, 8, 0], [3, 0, 8, 1], [11, 0, 12, 0], [12, 0, 13, 2], [13, 0, 6, 0], [2, 0, 12, 1], [8, 0, 11, 0]],
+"connections": [[1, 0, 8, 0], [1, 0, 20, 0], [1, 0, 21, 0], [3, 0, 8, 1], [3, 0, 20, 1], [3, 0, 21, 1], [8, 0, 22, 0], [8, 0, 27, 0], [20, 0, 23, 0], [20, 0, 26, 1], [21, 0, 24, 0], [21, 0, 25, 0], [25, 0, 26, 0], [26, 0, 30, 2], [27, 0, 28, 0], [28, 0, 31, 2], [29, 0, 28, 1], [30, 0, 31, 0], [31, 0, 32, 0]],
 "nodes": {
 "1": {
 "auto_connect": false,
-"gui_position": Vector2(432, 64),
+"gui_position": Vector2(288, -48),
 "type": "InputX"
 },
-"11": {
+"20": {
+"auto_connect": true,
+"gui_position": Vector2(512, -32),
+"noise": SubResource("ZN_FastNoiseLite_chaa6"),
+"type": "FastNoise2D"
+},
+"21": {
+"auto_connect": true,
+"gui_position": Vector2(512, -224),
+"noise": SubResource("ZN_FastNoiseLite_nbjel"),
+"type": "FastNoise2D"
+},
+"22": {
 "auto_connect": false,
-"b": 10.0,
-"gui_position": Vector2(736, 64),
+"fraction_period": 10.0,
+"gui_position": Vector2(656, 160),
+"max_value": 1.0,
+"min_value": -1.0,
+"mode": 0,
+"type": "SdfPreview"
+},
+"23": {
+"auto_connect": false,
+"fraction_period": 10.0,
+"gui_position": Vector2(656, -32),
+"max_value": 1.0,
+"min_value": -1.0,
+"mode": 0,
+"type": "SdfPreview"
+},
+"24": {
+"auto_connect": false,
+"fraction_period": 10.0,
+"gui_position": Vector2(656, -224),
+"max_value": 1.0,
+"min_value": -1.0,
+"mode": 0,
+"type": "SdfPreview"
+},
+"25": {
+"auto_connect": false,
+"b": 0.1,
+"gui_position": Vector2(800, -224),
 "type": "Multiply"
 },
-"12": {
+"26": {
 "auto_connect": false,
-"gui_position": Vector2(912, 64),
+"gui_position": Vector2(1040, -64),
 "type": "Add"
 },
-"13": {
-"a": 1.0,
+"27": {
 "auto_connect": false,
-"b": 0.0,
-"gui_position": Vector2(1088, 16),
-"threshold": 0.0,
-"type": "Select"
+"b": 10.0,
+"gui_position": Vector2(800, 160),
+"type": "Multiply"
 },
-"2": {
+"28": {
 "auto_connect": false,
-"gui_position": Vector2(784, 192),
+"gui_position": Vector2(1040, 160),
+"type": "Add"
+},
+"29": {
+"auto_connect": false,
+"gui_position": Vector2(880, 288),
 "type": "InputY"
 },
 "3": {
 "auto_connect": false,
-"gui_position": Vector2(432, 160),
+"gui_position": Vector2(288, 16),
 "type": "InputZ"
 },
-"6": {
+"30": {
+"a": 1.0,
 "auto_connect": false,
-"gui_position": Vector2(1296, 16),
+"b": 2.0,
+"gui_position": Vector2(1232, -64),
+"threshold": 0.0,
+"type": "Select"
+},
+"31": {
+"auto_connect": false,
+"b": 0.0,
+"gui_position": Vector2(1440, -64),
+"threshold": 0.0,
+"type": "Select"
+},
+"32": {
+"auto_connect": false,
+"gui_position": Vector2(1648, -64),
 "type": "OutputType"
 },
 "8": {
 "auto_connect": true,
-"gui_position": Vector2(560, 64),
+"gui_position": Vector2(512, 160),
 "noise": SubResource("ZN_FastNoiseLite_6m72w"),
 "type": "FastNoise2D"
 }

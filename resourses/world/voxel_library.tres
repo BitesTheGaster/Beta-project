@@ -1,7 +1,8 @@
 [gd_resource type="VoxelBlockyLibrary" format=3 uid="uid://dot0i58xdaopq"]
 
 [ext_resource type="VoxelBlockyModelEmpty" uid="uid://b644m3ryclfco" path="res://resourses/world/blocks/air.tres" id="1_myutl"]
-[ext_resource type="VoxelBlockyModelCube" uid="uid://pyfww45bnf5c" path="res://resourses/world/blocks/sand.tres" id="2_dxldg"]
+[ext_resource type="VoxelBlockyModelCube" uid="uid://dvp34fyh12ucu" path="res://resourses/world/blocks/sand.tres" id="2_dxldg"]
+[ext_resource type="VoxelBlockyModelCube" uid="uid://btmm87h8ejs5y" path="res://resourses/world/blocks/grass.tres" id="3_7pyxc"]
 
 [resource]
-models = Array[VoxelBlockyModel]([ExtResource("1_myutl"), ExtResource("2_dxldg")])
+models = Array[VoxelBlockyModel]([ExtResource("1_myutl"), ExtResource("2_dxldg"), ExtResource("3_7pyxc")])

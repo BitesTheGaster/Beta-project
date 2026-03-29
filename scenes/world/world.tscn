@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bsoy6bs3iriyt" path="res://scripts/world/world.gd" id="1_v5dby"]
 [ext_resource type="VoxelGeneratorGraph" uid="uid://6oyq7qri4r84" path="res://resourses/world/voxel_generator_graph.tres" id="3_6m72w"]
 [ext_resource type="VoxelMesherBlocky" uid="uid://d0bpcq5pqer20" path="res://resourses/world/mesher.tres" id="4_v5dby"]
+[ext_resource type="Material" uid="uid://dcqy33ib61wa4" path="res://resourses/world/terrain_material.tres" id="5_t5ptc"]
 [ext_resource type="Script" uid="uid://c4f864kyc42o0" path="res://scripts/world/voxel_viewer.gd" id="5_v5dby"]
 
 [node name="World" type="Node3D" unique_id=691141520]
@@ -22,9 +23,9 @@ shadow_enabled = true
 unique_name_in_owner = true
 generator = ExtResource("3_6m72w")
 mesher = ExtResource("4_v5dby")
+material = ExtResource("5_t5ptc")
 
 [node name="VoxelViewer" type="VoxelViewer" parent="." unique_id=1811148802]
 unique_name_in_owner = true
-view_distance = 512
 enabled_in_editor = true
 script = ExtResource("5_v5dby")

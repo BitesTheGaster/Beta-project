@@ -1,7 +1,3 @@
-[gd_resource type="VoxelBlockyModelCube" format=3 uid="uid://pyfww45bnf5c"]
-
-[ext_resource type="Material" uid="uid://dcqy33ib61wa4" path="res://resourses/world/terrain_material.tres" id="1_lff45"]
+[gd_resource type="VoxelBlockyModelCube" format=3 uid="uid://dvp34fyh12ucu"]
 
 [resource]
-material_override_0 = ExtResource("1_lff45")
-atlas_size_in_tiles = Vector2i(1, 1)
