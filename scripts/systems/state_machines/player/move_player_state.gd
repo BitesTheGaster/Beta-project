@@ -16,14 +16,15 @@ func physics_update(delta: float) -> void:
 	
 	# Input
 	var input_dir = get_input_dir()
-	var direction := (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction = (player.camera_pivot_y.transform.basis
+			* Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	# Movement
 	player.velocity.x = direction.x * player.stats.speed
 	player.velocity.z = direction.z * player.stats.speed
 	
 	# Jump
-	if Input.is_action_just_pressed("jump") and player.is_on_floor():
+	if Input.is_action_pressed("jump") and player.is_on_floor():
 		player.velocity.y = player.stats.jump_velocity
 	
 	# State transitions

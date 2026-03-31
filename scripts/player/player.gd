@@ -7,16 +7,11 @@ signal player_died()
 @export var mouse_sensitivity: float = 0.005
 
 var stats: PlayerStats = preload("res://resourses/stats/player_default_stats.tres")
-var is_local: bool = true
-var target_positiom := Vector3.ZERO
 
 @onready var camera: Camera3D = %Camera3D
-@onready var camera_pivot: Node3D = %CameraPivot
+@onready var camera_pivot_x: Node3D = %CameraPivotX
+@onready var camera_pivot_y: Node3D = %CameraPivotY
 @onready var health: HealthComponent = %HealthComponent
-@onready var meshes: Array[MeshInstance3D] = [
-	%BodyMesh,
-	%FaceMesh,
-]
 
 
 func _ready() -> void:
@@ -24,18 +19,14 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not is_local:
-		global_position = global_position.lerp(target_positiom, 0.33)
+	pass
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_local:
-		return
-	
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity
-		camera_pivot.rotation.x = clamp(camera_pivot.rotation.x, -PI/2, PI/2)
-		self.rotation.y -= event.relative.x * mouse_sensitivity
+		camera_pivot_x.rotation.x -= event.relative.y * mouse_sensitivity
+		camera_pivot_x.rotation.x = clamp(camera_pivot_x.rotation.x, -PI/2, PI/2)
+		camera_pivot_y.rotation.y -= event.relative.x * mouse_sensitivity
 
 
 func apply_gravity(delta: float) -> void:

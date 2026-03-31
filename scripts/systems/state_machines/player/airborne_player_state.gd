@@ -15,7 +15,8 @@ func physics_update(delta: float) -> void:
 	player.apply_gravity(delta)
 	
 	var input_dir = get_input_dir()
-	var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction = (player.camera_pivot_y.transform.basis
+			* Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	# Less control in air
 	player.velocity.x = lerp(player.velocity.x, direction.x * player.stats.speed, 0.1)

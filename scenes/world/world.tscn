@@ -2,10 +2,9 @@
 
 [ext_resource type="Environment" uid="uid://cc5q0ubndg2rk" path="res://resourses/environments/world_environment.tres" id="1_dphjl"]
 [ext_resource type="Script" uid="uid://bsoy6bs3iriyt" path="res://scripts/world/world.gd" id="1_v5dby"]
-[ext_resource type="VoxelGeneratorGraph" uid="uid://6oyq7qri4r84" path="res://resourses/world/voxel_generator_graph.tres" id="3_6m72w"]
+[ext_resource type="VoxelGeneratorScript" uid="uid://c50aguy6verkt" path="res://resourses/world/voxel_generator_script.tres" id="3_t5ptc"]
 [ext_resource type="VoxelMesherBlocky" uid="uid://d0bpcq5pqer20" path="res://resourses/world/mesher.tres" id="4_v5dby"]
-[ext_resource type="Material" uid="uid://dcqy33ib61wa4" path="res://resourses/world/terrain_material.tres" id="5_t5ptc"]
-[ext_resource type="Script" uid="uid://c4f864kyc42o0" path="res://scripts/world/voxel_viewer.gd" id="5_v5dby"]
+[ext_resource type="Material" uid="uid://dcqy33ib61wa4" path="res://resourses/world/terrain_material.tres" id="5_v5dby"]
 
 [node name="World" type="Node3D" unique_id=691141520]
 script = ExtResource("1_v5dby")
@@ -16,16 +15,12 @@ environment = ExtResource("1_dphjl")
 [node name="LightmapGI" type="LightmapGI" parent="." unique_id=780484468]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2022238401]
-transform = Transform3D(1, 0, 0, 0, -0.70710677, 0.70710677, 0, -0.70710677, -0.70710677, 0, 0, 0)
+transform = Transform3D(0.25881906148076383, 0.9330126428505526, -0.24999999999999997, 0, 0.25881902872427875, 0.9659258262890684, 0.9659258874135036, -0.24999998417983305, 0.06698729810778066, 0, 0, 0)
 shadow_enabled = true
 
-[node name="VoxelLodTerrain" type="VoxelLodTerrain" parent="." unique_id=1517196754]
+[node name="VoxelTerrain" type="VoxelTerrain" parent="." unique_id=1722999151]
 unique_name_in_owner = true
-generator = ExtResource("3_6m72w")
+generator = ExtResource("3_t5ptc")
 mesher = ExtResource("4_v5dby")
-material = ExtResource("5_t5ptc")
-
-[node name="VoxelViewer" type="VoxelViewer" parent="." unique_id=1811148802]
-unique_name_in_owner = true
-enabled_in_editor = true
-script = ExtResource("5_v5dby")
+material_override = ExtResource("5_v5dby")
+run_stream_in_editor = false

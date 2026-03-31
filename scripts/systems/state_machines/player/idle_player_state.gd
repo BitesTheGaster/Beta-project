@@ -15,7 +15,7 @@ func physics_update(delta: float) -> void:
 	player.apply_gravity(delta)
 	
 	# Jump
-	if Input.is_action_just_pressed("jump") and player.is_on_floor():
+	if Input.is_action_pressed("jump") and player.is_on_floor():
 		player.velocity.y += player.stats.jump_velocity
 	
 	# State transitions

@@ -2,17 +2,20 @@
 
 [sub_resource type="Gradient" id="Gradient_uob8y"]
 offsets = PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667, 0.8333333, 1)
-colors = PackedColorArray(0.3529412, 0.23529412, 0.27058825, 1, 0.5411765, 0.32156864, 0.34509805, 1, 0.68235296, 0.41960785, 0.3764706, 1, 0.78039217, 0.50980395, 0.42352942, 1, 0.84705883, 0.62352943, 0.45882353, 1, 0.9254902, 0.77254903, 0.5058824, 1, 1, 0.98039216, 0.67058825, 1)
+colors = PackedColorArray(0.09411765, 0.12156863, 0.18431373, 1, 0.13725491, 0.19607843, 0.3019608, 1, 0.14509805, 0.27450982, 0.41960785, 1, 0.21176471, 0.41960785, 0.5411765, 1, 0.25490198, 0.69803923, 0.8901961, 1, 0.32156864, 0.8235294, 1, 1, 0.45490196, 0.9607843, 0.99215686, 1)
 metadata/_snap_enabled = true
 metadata/_snap_count = 6
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_lssd5"]
 gradient = SubResource("Gradient_uob8y")
-fill_from = Vector2(0, 1)
-fill_to = Vector2(0, 0)
+width = 1
+height = 256
+fill_from = Vector2(0, 0.95)
+fill_to = Vector2(0, 0.05)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1kqp1"]
 panorama = SubResource("GradientTexture2D_lssd5")
+filter = false
 
 [sub_resource type="Sky" id="Sky_gcccd"]
 sky_material = SubResource("PanoramaSkyMaterial_1kqp1")
@@ -20,5 +23,6 @@ sky_material = SubResource("PanoramaSkyMaterial_1kqp1")
 [resource]
 background_mode = 2
 sky = SubResource("Sky_gcccd")
+sky_rotation = Vector3(0.2617993877991494, 0, 0.2617993877991494)
 tonemap_mode = 1
 fog_density = 0.1
