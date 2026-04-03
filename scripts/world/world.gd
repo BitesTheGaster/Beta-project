@@ -11,6 +11,7 @@ const GENERATOR = preload("res://scripts/world/voxel_generator.gd")
 var sync_timer: float = 0.0
 var local_player: Player
 var spawned_players: Dictionary[int, RemotePlayer] = {}
+var voxel_tool: VoxelTool
 
 @onready var player_scene = preload("res://scenes/player/player.tscn")
 @onready var remote_player_scene = preload("res://scenes/player/remote_player.tscn")
@@ -23,6 +24,8 @@ func _ready() -> void:
 	
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+	
+	voxel_tool = voxel_terrain.get_voxel_tool()
 
 
 func _process(delta: float) -> void:
@@ -35,11 +38,7 @@ func _process(delta: float) -> void:
 		_rpc_sync_position.rpc(
 				local_player.global_position,
 				local_player.rotation,
-				Vector3(
-					local_player.camera_pivot_x.rotation.x,
-					local_player.camera_pivot_y.rotation.y,
-					0,
-				)
+				local_player.get_camera_rotation()
 		)
 
 
@@ -79,6 +78,7 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		add_child(player)
 		
 		local_player = player
+		local_player.set_block.connect(_on_player_set_block)
 		player.camera.current = true
 		print("[GameWorld] Local player spawned: " + str(id))
 	else:
@@ -106,3 +106,24 @@ func _rpc_sync_position(pos: Vector3, rot: Vector3, camera_pivot_rot: Vector3) -
 	spawned_players[sender_id].rotation = rot
 	spawned_players[sender_id].camera_pivot_x.rotation.x = camera_pivot_rot.x
 	spawned_players[sender_id].camera_pivot_y.rotation.y = camera_pivot_rot.y
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _set_block(id: int, pos: Vector3i):
+	voxel_tool.set_voxel(pos, id)
+
+
+func _on_player_set_block(id: int) -> void:
+	var hit_voxel: VoxelRaycastResult = _get_pointed_voxel()
+	if hit_voxel:
+		if id == 0:
+			_set_block.rpc(id, hit_voxel.position)
+		else:
+			_set_block.rpc(id, hit_voxel.previous_position)
+
+
+func _get_pointed_voxel() -> VoxelRaycastResult:
+	var origin := local_player.camera.get_global_transform().origin
+	var forward := -local_player.camera.get_global_transform().basis.z.normalized()
+	var hit := voxel_tool.raycast(origin, forward, 5)
+	return hit
