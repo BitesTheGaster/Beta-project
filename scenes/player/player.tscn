@@ -6,28 +6,25 @@
 [ext_resource type="Script" uid="uid://bwtu1yst5qy4o" path="res://scripts/systems/state_machines/player/idle_player_state.gd" id="3_75vfm"]
 [ext_resource type="Script" uid="uid://qn644bshd6ci" path="res://scripts/systems/state_machines/player/move_player_state.gd" id="4_0owmy"]
 [ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/systems/state_machines/player/airborne_player_state.gd" id="5_qek5x"]
-[ext_resource type="Script" uid="uid://cwsi14ldftndq" path="res://scripts/player/crosshair.gd" id="7_0owmy"]
+[ext_resource type="Script" path="res://scripts/player/crosshair.gd" id="7_0owmy"]
 [ext_resource type="Texture2D" uid="uid://okd4l7jknc5e" path="res://assets/crosshair.png" id="7_qek5x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_75vfm"]
 size = Vector3(0.8, 1.8, 0.8)
 
-[sub_resource type="BoxMesh" id="BoxMesh_75vfm"]
+[sub_resource type="BoxMesh" id="BoxMesh_h17s1"]
 size = Vector3(0.8, 1.8, 0.8)
-
-[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_0owmy"]
-size = 0.1
 
 [node name="Player" type="CharacterBody3D" unique_id=1196062079 groups=["Player"]]
 script = ExtResource("1_8afob")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=149652403]
+[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=149652403]
 unique_name_in_owner = true
 shape = SubResource("BoxShape3D_75vfm")
 
-[node name="BodyShadow" type="MeshInstance3D" parent="." unique_id=645937832]
-cast_shadow = 3
-mesh = SubResource("BoxMesh_75vfm")
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1491300181]
+unique_name_in_owner = true
+mesh = SubResource("BoxMesh_h17s1")
 
 [node name="CameraPivotY" type="Node3D" parent="." unique_id=2133407630]
 unique_name_in_owner = true
@@ -36,22 +33,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 [node name="CameraPivotX" type="Node3D" parent="CameraPivotY" unique_id=1300189011]
 unique_name_in_owner = true
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivotY/CameraPivotX" unique_id=959529958]
+[node name="CameraSpringArm" type="SpringArm3D" parent="CameraPivotY/CameraPivotX" unique_id=1108985499]
+unique_name_in_owner = true
+collision_mask = 2
+margin = 0.02
+
+[node name="Camera" type="Camera3D" parent="CameraPivotY/CameraPivotX/CameraSpringArm" unique_id=959529958]
 unique_name_in_owner = true
 fov = 90.0
 
-[node name="VoxelViewer" type="VoxelViewer" parent="CameraPivotY/CameraPivotX/Camera3D" unique_id=1948795317]
+[node name="VoxelViewer" type="VoxelViewer" parent="CameraPivotY/CameraPivotX/CameraSpringArm/Camera" unique_id=1948795317]
 unique_name_in_owner = true
 enabled_in_editor = true
 
 [node name="InteractionRay" type="RayCast3D" parent="CameraPivotY/CameraPivotX" unique_id=422886467]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -3)
-
-[node name="EyesShadow" type="MeshInstance3D" parent="CameraPivotY/CameraPivotX" unique_id=1499048900]
-transform = Transform3D(3.749399456654644e-33, 6.123233995736766e-17, 1, -1, 6.123233995736766e-17, 0, -6.123233995736766e-17, -1, 6.123233995736766e-17, 0, 0, -0.5)
-cast_shadow = 3
-mesh = SubResource("RibbonTrailMesh_0owmy")
 
 [node name="Components" type="Node" parent="." unique_id=1305276591]
 unique_name_in_owner = true
