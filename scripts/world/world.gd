@@ -139,8 +139,8 @@ func _on_player_set_block(id: int) -> void:
 		if id == 0:
 			_set_block.rpc(id, hit_voxel.position)
 		else:
-			# TODO check if can place block
-			_set_block.rpc(id, hit_voxel.previous_position)
+			if _can_place_block(hit_voxel.previous_position):
+				_set_block.rpc(id, hit_voxel.previous_position)
 
 
 func _get_pointed_voxel() -> VoxelRaycastResult:
@@ -148,3 +148,26 @@ func _get_pointed_voxel() -> VoxelRaycastResult:
 	var forward := -local_player.camera.get_global_transform().basis.z.normalized()
 	var hit := voxel_tool.raycast(origin, forward, 5)
 	return hit
+
+
+func _can_place_block(pos: Vector3i) -> bool:
+	var block_aabb = AABB(Vector3(pos), Vector3.ONE)
+	
+	if local_player and \
+			_get_player_aabb(local_player.position).intersects(block_aabb):
+		return false
+	
+	for id in spawned_players.keys():
+		var remote_player: RemotePlayer = spawned_players[id]
+		if remote_player and \
+				_get_player_aabb(remote_player.position).intersects(block_aabb):
+			return false
+	
+	return true
+
+
+func _get_player_aabb(pos: Vector3) -> AABB:
+	return AABB(
+		pos-Vector3(0.4, 0.9, 0.4),
+		Vector3(0.8, 1.8, 0.8)
+	)
