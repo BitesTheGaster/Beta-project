@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://bwtu1yst5qy4o" path="res://scripts/systems/state_machines/player/idle_player_state.gd" id="3_75vfm"]
 [ext_resource type="Script" uid="uid://qn644bshd6ci" path="res://scripts/systems/state_machines/player/move_player_state.gd" id="4_0owmy"]
 [ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/systems/state_machines/player/airborne_player_state.gd" id="5_qek5x"]
+[ext_resource type="Script" uid="uid://cwsi14ldftndq" path="res://scripts/player/crosshair.gd" id="7_0owmy"]
+[ext_resource type="Texture2D" uid="uid://okd4l7jknc5e" path="res://assets/crosshair.png" id="7_qek5x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_75vfm"]
 size = Vector3(0.8, 1.8, 0.8)
@@ -13,13 +15,8 @@ size = Vector3(0.8, 1.8, 0.8)
 [sub_resource type="BoxMesh" id="BoxMesh_75vfm"]
 size = Vector3(0.8, 1.8, 0.8)
 
-[sub_resource type="Curve" id="Curve_14ldd"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_0owmy"]
-size = 0.2
-curve = SubResource("Curve_14ldd")
+size = 0.1
 
 [node name="Player" type="CharacterBody3D" unique_id=1196062079 groups=["Player"]]
 script = ExtResource("1_8afob")
@@ -84,3 +81,7 @@ metadata/_custom_type_script = "uid://dsdcsxxnumvnh"
 script = ExtResource("5_qek5x")
 state_machine = NodePath("..")
 metadata/_custom_type_script = "uid://dsdcsxxnumvnh"
+
+[node name="Crosshair" type="Sprite2D" parent="." unique_id=1245428970]
+texture = ExtResource("7_qek5x")
+script = ExtResource("7_0owmy")

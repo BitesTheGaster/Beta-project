@@ -3,10 +3,6 @@
 [ext_resource type="Script" uid="uid://qmmgf5dngcol" path="res://scripts/player/remote_player.gd" id="1_orxjf"]
 [ext_resource type="Texture2D" uid="uid://blgmp3x02eong" path="res://epst.png" id="2_rmxnb"]
 
-[sub_resource type="Curve" id="Curve_orxjf"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmxnb"]
 transparency = 1
 cull_mode = 2
@@ -15,8 +11,11 @@ albedo_color = Color(1, 1, 1, 0.09803922)
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_pnie1"]
 material = SubResource("StandardMaterial3D_rmxnb")
-size = 0.2
-curve = SubResource("Curve_orxjf")
+size = 0.1
+
+[sub_resource type="Curve" id="Curve_orxjf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_rmxnb"]
 size = 0.2
