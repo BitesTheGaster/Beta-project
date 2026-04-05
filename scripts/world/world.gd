@@ -144,8 +144,8 @@ func _on_player_set_block(id: int) -> void:
 
 
 func _get_pointed_voxel() -> VoxelRaycastResult:
-	var origin := local_player.camera.get_global_transform().origin
-	var forward := -local_player.camera.get_global_transform().basis.z.normalized()
+	var origin := local_player.camera_pivot_x.get_global_transform().origin
+	var forward := -local_player.camera_pivot_x.get_global_transform().basis.z.normalized()
 	var hit := voxel_tool.raycast(origin, forward, 5)
 	return hit
 

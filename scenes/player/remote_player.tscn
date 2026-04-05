@@ -1,35 +1,15 @@
 [gd_scene format=3 uid="uid://cy0qfol2ovsfc"]
 
 [ext_resource type="Script" uid="uid://qmmgf5dngcol" path="res://scripts/player/remote_player.gd" id="1_orxjf"]
-[ext_resource type="Texture2D" uid="uid://blgmp3x02eong" path="res://epst.png" id="2_rmxnb"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmxnb"]
-transparency = 1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2ekk"]
 cull_mode = 2
-shading_mode = 0
-albedo_color = Color(1, 1, 1, 0.09803922)
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_pnie1"]
-material = SubResource("StandardMaterial3D_rmxnb")
+material = SubResource("StandardMaterial3D_e2ekk")
 size = 0.1
 
-[sub_resource type="Curve" id="Curve_orxjf"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_rmxnb"]
-size = 0.2
-curve = SubResource("Curve_orxjf")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_840kl"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.09803922)
-
 [sub_resource type="BoxMesh" id="BoxMesh_orxjf"]
-material = SubResource("StandardMaterial3D_840kl")
-size = Vector3(0.8, 1.8, 0.8)
-
-[sub_resource type="BoxMesh" id="BoxMesh_rmxnb"]
 size = Vector3(0.8, 1.8, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_orxjf"]
@@ -49,22 +29,8 @@ unique_name_in_owner = true
 transform = Transform3D(3.749399456654644e-33, 6.123233995736766e-17, 1, -1, 6.123233995736766e-17, 0, -6.123233995736766e-17, -1, 6.123233995736766e-17, 0, 0, -0.5)
 mesh = SubResource("RibbonTrailMesh_pnie1")
 
-[node name="EyesShadow" type="MeshInstance3D" parent="CameraPivotY/CameraPivotX" unique_id=850573695]
-transform = Transform3D(3.749399456654644e-33, 6.123233995736766e-17, 1, -1, 6.123233995736766e-17, 0, -6.123233995736766e-17, -1, 6.123233995736766e-17, 0, 0, -0.5)
-cast_shadow = 3
-mesh = SubResource("RibbonTrailMesh_rmxnb")
-
-[node name="Sprite3D" type="Sprite3D" parent="CameraPivotY" unique_id=683953714]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
-pixel_size = 0.00319999999999999
-texture = ExtResource("2_rmxnb")
-
 [node name="Body" type="MeshInstance3D" parent="." unique_id=2047069798]
 mesh = SubResource("BoxMesh_orxjf")
-
-[node name="BodyShadow" type="MeshInstance3D" parent="." unique_id=1808758941]
-cast_shadow = 3
-mesh = SubResource("BoxMesh_rmxnb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1059203508]
 unique_name_in_owner = true
