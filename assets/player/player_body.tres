@@ -1,0 +1,13 @@
+[gd_resource type="BoxMesh" format=3 uid="uid://cbq3wtfl2thdr"]
+
+[ext_resource type="Texture2D" uid="uid://kiidgjngjds" path="res://assets/player/player_body.png" id="1_qnpt4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7wyny"]
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_qnpt4")
+texture_filter = 0
+texture_repeat = false
+
+[resource]
+material = SubResource("StandardMaterial3D_7wyny")
+size = Vector3(0.8, 1.1, 0.8)

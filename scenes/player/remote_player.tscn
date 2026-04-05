@@ -1,16 +1,8 @@
 [gd_scene format=3 uid="uid://cy0qfol2ovsfc"]
 
 [ext_resource type="Script" uid="uid://qmmgf5dngcol" path="res://scripts/player/remote_player.gd" id="1_orxjf"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2ekk"]
-cull_mode = 2
-
-[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_pnie1"]
-material = SubResource("StandardMaterial3D_e2ekk")
-size = 0.1
-
-[sub_resource type="BoxMesh" id="BoxMesh_orxjf"]
-size = Vector3(0.8, 1.8, 0.8)
+[ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://assets/player/player_head.tres" id="2_rmxnb"]
+[ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://assets/player/player_body.tres" id="3_rmxnb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_orxjf"]
 size = Vector3(0.8, 1.8, 0.8)
@@ -20,17 +12,17 @@ script = ExtResource("1_orxjf")
 
 [node name="CameraPivotY" type="Node3D" parent="." unique_id=688962691]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 
 [node name="CameraPivotX" type="Node3D" parent="CameraPivotY" unique_id=830620193]
 unique_name_in_owner = true
 
-[node name="Eyes" type="MeshInstance3D" parent="CameraPivotY/CameraPivotX" unique_id=906888313]
-transform = Transform3D(3.749399456654644e-33, 6.123233995736766e-17, 1, -1, 6.123233995736766e-17, 0, -6.123233995736766e-17, -1, 6.123233995736766e-17, 0, 0, -0.5)
-mesh = SubResource("RibbonTrailMesh_pnie1")
+[node name="Head" type="MeshInstance3D" parent="CameraPivotY/CameraPivotX" unique_id=906888313]
+mesh = ExtResource("2_rmxnb")
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=2047069798]
-mesh = SubResource("BoxMesh_orxjf")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35000000000582077, 0)
+mesh = ExtResource("3_rmxnb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1059203508]
 unique_name_in_owner = true

@@ -1,0 +1,13 @@
+[gd_resource type="BoxMesh" format=3 uid="uid://c1mkppimuhoif"]
+
+[ext_resource type="Texture2D" uid="uid://bqptyxakouh27" path="res://assets/player/player_head.png" id="1_8aiww"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k0gay"]
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_8aiww")
+texture_filter = 0
+texture_repeat = false
+
+[resource]
+material = SubResource("StandardMaterial3D_k0gay")
+size = Vector3(0.675, 0.675, 0.675)
