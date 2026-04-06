@@ -29,6 +29,7 @@ window/stretch/mode="viewport"
 [file_customization]
 
 folder_colors={
+"res://!notes/": "yellow",
 "res://assets/": "pink",
 "res://resourses/": "purple",
 "res://scenes/": "teal",

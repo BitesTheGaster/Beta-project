@@ -90,7 +90,6 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		
 		local_player = player
 		local_player.set_block.connect(_on_player_set_block)
-		player.camera.current = true
 		print("[GameWorld] Local player spawned: " + str(id))
 	else:
 		var remote_player = remote_player_scene.instantiate()
