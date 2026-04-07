@@ -1,5 +1,5 @@
 extends Sprite2D
-##
+## Center crosshair on screen
 
 
 func _process(delta: float) -> void:

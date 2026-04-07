@@ -1,16 +1,14 @@
 [gd_scene format=3 uid="uid://cf8cp7qd2aamx"]
 
 [ext_resource type="Script" uid="uid://bqsnh21fed01d" path="res://scripts/player/player.gd" id="1_8afob"]
-[ext_resource type="Script" uid="uid://bln7r7bllxk8p" path="res://scripts/components/health_component.gd" id="2_75vfm"]
-[ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://assets/player/player_body.tres" id="2_h17s1"]
+[ext_resource type="Script" uid="uid://bln7r7bllxk8p" path="res://scripts/player/components/health_component.gd" id="2_75vfm"]
+[ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://resourses/player/player_body.tres" id="2_h17s1"]
 [ext_resource type="Script" uid="uid://c7ue86ob1yk04" path="res://scripts/player/player_state_machine.gd" id="2_p47bc"]
 [ext_resource type="Script" uid="uid://bwtu1yst5qy4o" path="res://scripts/player/states/idle_player_state.gd" id="3_75vfm"]
-[ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://assets/player/player_head.tres" id="3_h17s1"]
+[ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://resourses/player/player_head.tres" id="3_h17s1"]
 [ext_resource type="Script" uid="uid://qn644bshd6ci" path="res://scripts/player/states/move_player_state.gd" id="4_0owmy"]
-[ext_resource type="Script" uid="uid://dldqyhepmtyek" path="res://scripts/player/player_camera.gd" id="5_je7p5"]
+[ext_resource type="Script" uid="uid://dldqyhepmtyek" path="res://scripts/player/camera_controller.gd" id="5_je7p5"]
 [ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/player/states/airborne_player_state.gd" id="5_qek5x"]
-[ext_resource type="Script" uid="uid://cwsi14ldftndq" path="res://scripts/player/crosshair.gd" id="7_0owmy"]
-[ext_resource type="Texture2D" uid="uid://okd4l7jknc5e" path="res://assets/player/crosshair.png" id="7_qek5x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_75vfm"]
 size = Vector3(0.8, 1.8, 0.8)
@@ -67,10 +65,6 @@ metadata/_custom_type_script = "uid://bln7r7bllxk8p"
 
 [node name="CameraController" type="Node" parent="Controllers" unique_id=916503239]
 script = ExtResource("5_je7p5")
-
-[node name="Crosshair" type="Sprite2D" parent="." unique_id=1245428970]
-texture = ExtResource("7_qek5x")
-script = ExtResource("7_0owmy")
 
 [node name="PlayerStateMachine" type="Node" parent="." unique_id=1240821678 node_paths=PackedStringArray("player", "initial_state")]
 script = ExtResource("2_p47bc")

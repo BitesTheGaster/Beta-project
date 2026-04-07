@@ -4,6 +4,7 @@ extends Node3D
 
 @onready var world_scene = preload("res://scenes/world/world.tscn")
 @onready var main_menu: MainMenu = %MainMenu
+@onready var hud: Hud = %Hud
 
 
 func _ready() -> void:
@@ -12,6 +13,7 @@ func _ready() -> void:
 
 func _on_world_entered():
 	main_menu.hide()
+	hud.show()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	var world: GameWorld = world_scene.instantiate()
 	add_child(world)
