@@ -9,8 +9,7 @@ signal player_disconnected(id: int)
 const DEFAULT_PORT: int = 7777
 const MAX_PLAYERS: int = 8
 
-var is_server: bool = false
-var is_client: bool = false
+var is_on_server: bool = false
 
 
 func _ready() -> void:
@@ -29,8 +28,7 @@ func host_game(port: int = DEFAULT_PORT) -> Error:
 		return error
 	
 	multiplayer.multiplayer_peer = peer
-	is_server = true
-	is_client = false
+	is_on_server = true
 	
 	print("[Network] Hosting on port %d" % port)
 	connection_succeeded.emit()
@@ -46,8 +44,7 @@ func join_game(ip: String, port: int = DEFAULT_PORT) -> Error:
 		return error
 	
 	multiplayer.multiplayer_peer = peer
-	is_server = false
-	is_client = true
+	is_on_server = true
 	
 	print("[Network] Joining %s:%d" % [ip, port])
 	return OK
@@ -58,8 +55,7 @@ func disconnect_from_game() -> void:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
 	
-	is_server = false
-	is_client = false
+	is_on_server = false
 	print("[Network] Disconnected")
 
 

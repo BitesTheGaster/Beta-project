@@ -1,12 +1,18 @@
 class_name RemotePlayer
-extends StaticBody3D
+extends CharacterBody3D
 ##
 
 
-var target_positiom := Vector3.ZERO
+var target_position := Vector3.ZERO
+var predicted_velocity := Vector3.ZERO
+var interpolation_speed: float = 20.0
+
 
 @onready var camera_pivot_x: Node3D = %CameraPivotX
 @onready var camera_pivot_y: Node3D = %CameraPivotY
 
-func _physics_process(delta: float) -> void:
-	global_position = global_position.lerp(target_positiom, 0.33)
+
+func _physics_process(delta):
+	global_position = global_position.lerp(target_position, interpolation_speed * delta)
+	velocity = predicted_velocity
+	move_and_slide()

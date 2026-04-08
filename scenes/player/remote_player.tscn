@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cy0qfol2ovsfc"]
 
 [ext_resource type="Script" uid="uid://qmmgf5dngcol" path="res://scripts/player/remote_player.gd" id="1_orxjf"]
-[ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://assets/player/player_head.tres" id="2_rmxnb"]
-[ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://assets/player/player_body.tres" id="3_rmxnb"]
+[ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://resourses/player/player_head.tres" id="2_rmxnb"]
+[ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://resourses/player/player_body.tres" id="3_rmxnb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_orxjf"]
 size = Vector3(0.8, 1.8, 0.8)
 
-[node name="RemotePlayer" type="StaticBody3D" unique_id=1926303459]
+[node name="RemotePlayer" type="CharacterBody3D" unique_id=2028486074]
 script = ExtResource("1_orxjf")
 
 [node name="CameraPivotY" type="Node3D" parent="." unique_id=688962691]
