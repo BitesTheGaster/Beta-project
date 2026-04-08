@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 signal set_block(id: int)
 
-var stats: PlayerStats = preload("res://resourses/stats/player_default_stats.tres")
+var stats: PlayerStats = preload("res://resourses/player/player_default_stats.tres")
 
 @onready var camera_pivot_x: Node3D = %CameraPivotX
 @onready var camera_pivot_y: Node3D = %CameraPivotY
