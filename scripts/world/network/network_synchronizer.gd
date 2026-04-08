@@ -5,7 +5,7 @@ extends Node
 
 const PLAYER_SPAWN_POS: Vector3 = Vector3(0, 128, 0)
 
-@export var sync_rate: float = 0.05
+@export var sync_rate: float = 0.03
 
 var sync_timer: float = 0.0
 
@@ -33,7 +33,8 @@ func _process(delta: float) -> void:
 		_rpc_sync_position.rpc(
 				world.local_player.global_position,
 				world.local_player.rotation,
-				world.local_player.get_camera_rotation()
+				world.local_player.get_camera_rotation(),
+				world.local_player.velocity,
 		)
 
 
@@ -94,10 +95,11 @@ func _delete_player(id: int) -> void:
 	print("[GameWorld] Player deleted: " + str(id))
 
 
-@rpc("any_peer", "call_remote", "reliable")
-func _rpc_sync_position(pos: Vector3, rot: Vector3, camera_pivot_rot: Vector3) -> void:
+@rpc("any_peer", "call_remote", "unreliable")
+func _rpc_sync_position(pos: Vector3, rot: Vector3, camera_pivot_rot: Vector3, velocity: Vector3) -> void:
 	var sender_id: int = multiplayer.get_remote_sender_id()
-	world.spawned_players[sender_id].target_positiom = pos
+	world.spawned_players[sender_id].target_position = pos
 	world.spawned_players[sender_id].rotation = rot
 	world.spawned_players[sender_id].camera_pivot_x.rotation.x = camera_pivot_rot.x
 	world.spawned_players[sender_id].camera_pivot_y.rotation.y = camera_pivot_rot.y
+	world.spawned_players[sender_id].predicted_velocity = velocity
