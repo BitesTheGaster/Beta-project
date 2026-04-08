@@ -6,6 +6,7 @@
 [ext_resource type="VoxelMesherBlocky" uid="uid://d0bpcq5pqer20" path="res://resourses/world/mesher.tres" id="4_v5dby"]
 [ext_resource type="Material" uid="uid://dcqy33ib61wa4" path="res://resourses/world/terrain_material.tres" id="5_v5dby"]
 [ext_resource type="Script" uid="uid://bu6pjdpsfjsyl" path="res://scripts/world/managers/block_manager.gd" id="6_t5ptc"]
+[ext_resource type="Script" uid="uid://datvni4aio2eq" path="res://scripts/world/network/network_synchronizer.gd" id="8_1yooq"]
 
 [node name="World" type="Node3D" unique_id=691141520]
 script = ExtResource("1_v5dby")
@@ -27,6 +28,12 @@ collision_layer = 255
 collision_mask = 255
 material_override = ExtResource("5_v5dby")
 run_stream_in_editor = false
+
+[node name="Players" type="Node3D" parent="." unique_id=224826030]
+
+[node name="NetworkSynchronizer" type="Node" parent="." unique_id=486761543]
+unique_name_in_owner = true
+script = ExtResource("8_1yooq")
 
 [node name="BlockManager" type="Node" parent="." unique_id=1093216749 node_paths=PackedStringArray("voxel_terrain")]
 unique_name_in_owner = true

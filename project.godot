@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Silicon echoes"
+config/name="Beta-project"
 run/main_scene="uid://cmsmryodib7w7"
 config/features=PackedStringArray("4.6", "Double Precision", "Forward Plus")
 config/icon="res://icon.svg"
@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 NetworkManager="*uid://dgdbxlur4lqx8"
-WorldData="*uid://b3a55hayaynhd"
 
 [display]
 
