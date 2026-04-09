@@ -18,7 +18,9 @@ var stats: PlayerStats = preload("res://resourses/player/player_default_stats.tr
 var current_block: int = 1
 
 func _ready() -> void:
-	pass
+	stats.max_health = health.max_health
+	stats.start_health = health.current_health
+	health.health_changed.emit(health.current_health, health.max_health)
 
 
 func _process(delta: float) -> void:

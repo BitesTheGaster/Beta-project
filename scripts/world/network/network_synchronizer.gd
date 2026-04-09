@@ -3,6 +3,8 @@ extends Node
 ##
 
 
+signal local_player_spawned(local_player: Player)
+
 const PLAYER_SPAWN_POS: Vector3 = Vector3(0, 128, 0)
 
 @export var sync_rate: float = 0.03
@@ -76,6 +78,7 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		
 		world.local_player = player
 		world.local_player.set_block.connect(world.block_manager.on_player_set_block)
+		;local_player_spawned.emit(world.local_player)
 		print("[GameWorld] Local player spawned: " + str(id))
 	else:
 		var remote_player = remote_player_scene.instantiate()
