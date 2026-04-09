@@ -8,9 +8,11 @@ signal health_changed(new_hp: float, max_hp: float)
 signal died()
 
 @export var max_health: float = 100.0
+
 var current_health: float = 100.0
 
 
+@rpc("any_peer", "call_remote", "reliable")
 func take_damage(amount: float) -> void:
 	current_health -= amount
 	health_changed.emit(current_health, max_health)

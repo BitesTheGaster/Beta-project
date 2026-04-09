@@ -70,7 +70,7 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		return
 	
 	if id == multiplayer.get_unique_id():
-		var player = player_scene.instantiate()
+		var player: Player = player_scene.instantiate()
 		player.position = player_position
 		player.set_multiplayer_authority(id)
 		
@@ -78,10 +78,10 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		
 		world.local_player = player
 		world.local_player.set_block.connect(world.block_manager.on_player_set_block)
-		;local_player_spawned.emit(world.local_player)
+		local_player_spawned.emit(world.local_player)
 		print("[GameWorld] Local player spawned: " + str(id))
 	else:
-		var remote_player = remote_player_scene.instantiate()
+		var remote_player: RemotePlayer = remote_player_scene.instantiate()
 		remote_player.position = player_position
 		remote_player.set_multiplayer_authority(id)
 		

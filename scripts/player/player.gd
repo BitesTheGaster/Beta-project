@@ -19,7 +19,6 @@ var current_block: int = 1
 
 func _ready() -> void:
 	stats.max_health = health.max_health
-	stats.start_health = health.current_health
 	health.health_changed.emit(health.current_health, health.max_health)
 
 
