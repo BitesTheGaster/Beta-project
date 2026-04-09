@@ -45,9 +45,9 @@ fov = 90.0
 unique_name_in_owner = true
 enabled_in_editor = true
 
-[node name="InteractionRay" type="RayCast3D" parent="CameraPivotY/CameraPivotX" unique_id=422886467]
+[node name="Raycast" type="RayCast3D" parent="CameraPivotY/CameraPivotX" unique_id=422886467]
 unique_name_in_owner = true
-target_position = Vector3(0, 0, -3)
+target_position = Vector3(0, 0, -5)
 
 [node name="Head" type="MeshInstance3D" parent="CameraPivotY/CameraPivotX" unique_id=887735150]
 unique_name_in_owner = true

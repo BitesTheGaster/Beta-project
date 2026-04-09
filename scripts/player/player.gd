@@ -10,7 +10,7 @@ var stats: PlayerStats = preload("res://resourses/player/player_default_stats.tr
 @onready var camera_pivot_y: Node3D = %CameraPivotY
 @onready var health: HealthComponent = %HealthComponent
 @onready var collision: CollisionShape3D = %CollisionShape
-@onready var interaction_ray: RayCast3D = %InteractionRay
+@onready var raycast: RayCast3D = %Raycast
 @onready var camera_spring_arm: SpringArm3D = %CameraSpringArm
 @onready var body: MeshInstance3D = %Body
 
@@ -24,7 +24,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):
-		set_block.emit(0)
+		raycast.force_raycast_update()
+		var target = raycast.get_collider()
+		if target is RemotePlayer:
+			health.take_damage.rpc_id(target.get_multiplayer_authority(), 1)
+		else:
+			set_block.emit(0)
 	if Input.is_action_just_pressed("use"):
 		set_block.emit(current_block)
 	if Input.is_action_just_pressed("slot1"):

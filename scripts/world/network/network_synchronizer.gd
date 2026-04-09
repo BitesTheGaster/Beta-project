@@ -14,6 +14,7 @@ var sync_timer: float = 0.0
 @onready var player_scene = preload("res://scenes/player/player.tscn")
 @onready var remote_player_scene = preload("res://scenes/player/remote_player.tscn")
 @onready var world: GameWorld = get_parent()
+@onready var players_container: Node3D = %PlayersContainer
 
 
 func _ready() -> void:
@@ -74,7 +75,7 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		player.position = player_position
 		player.set_multiplayer_authority(id)
 		
-		add_child(player)
+		players_container.add_child(player)
 		
 		world.local_player = player
 		world.local_player.set_block.connect(world.block_manager.on_player_set_block)
@@ -85,7 +86,7 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		remote_player.position = player_position
 		remote_player.set_multiplayer_authority(id)
 		
-		add_child(remote_player)
+		players_container.add_child(remote_player)
 		
 		world.spawned_players[id] = remote_player
 		print("[GameWorld] Player spawned: " + str(id))
