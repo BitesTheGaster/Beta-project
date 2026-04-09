@@ -3,6 +3,8 @@ extends Node
 ##
 
 
+signal local_player_spawned(local_player: Player)
+
 const PLAYER_SPAWN_POS: Vector3 = Vector3(0, 128, 0)
 
 @export var sync_rate: float = 0.03
@@ -12,6 +14,7 @@ var sync_timer: float = 0.0
 @onready var player_scene = preload("res://scenes/player/player.tscn")
 @onready var remote_player_scene = preload("res://scenes/player/remote_player.tscn")
 @onready var world: GameWorld = get_parent()
+@onready var players_container: Node3D = %PlayersContainer
 
 
 func _ready() -> void:
@@ -68,21 +71,23 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		return
 	
 	if id == multiplayer.get_unique_id():
-		var player = player_scene.instantiate()
+		var player: Player = player_scene.instantiate()
 		player.position = player_position
 		player.set_multiplayer_authority(id)
 		
-		add_child(player)
+		players_container.add_child(player)
 		
 		world.local_player = player
 		world.local_player.set_block.connect(world.block_manager.on_player_set_block)
+		world.local_player.health.died.connect(world.on_player_death)
+		local_player_spawned.emit(world.local_player)
 		print("[GameWorld] Local player spawned: " + str(id))
 	else:
-		var remote_player = remote_player_scene.instantiate()
+		var remote_player: RemotePlayer = remote_player_scene.instantiate()
 		remote_player.position = player_position
 		remote_player.set_multiplayer_authority(id)
 		
-		add_child(remote_player)
+		players_container.add_child(remote_player)
 		
 		world.spawned_players[id] = remote_player
 		print("[GameWorld] Player spawned: " + str(id))

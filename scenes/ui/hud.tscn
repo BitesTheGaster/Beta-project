@@ -10,3 +10,9 @@ script = ExtResource("1_bo48s")
 [node name="Crosshair" type="Sprite2D" parent="." unique_id=366432026]
 texture = ExtResource("1_hqnrr")
 script = ExtResource("2_bo48s")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1912095438]
+unique_name_in_owner = true
+offset_right = 1920.0
+offset_bottom = 27.0
+value = 100.0
