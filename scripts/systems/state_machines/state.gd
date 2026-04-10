@@ -18,6 +18,10 @@ func update_input(event: InputEvent) -> void:
 	pass
 
 
+func update_key_input(event: InputEvent) -> void:
+	pass
+
+
 func enter() -> void:
 	pass
 

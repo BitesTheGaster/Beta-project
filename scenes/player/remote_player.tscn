@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cy0qfol2ovsfc"]
 
-[ext_resource type="Script" uid="uid://qmmgf5dngcol" path="res://scripts/player/remote_player.gd" id="1_orxjf"]
-[ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://resourses/player/player_head.tres" id="2_rmxnb"]
-[ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://resourses/player/player_body.tres" id="3_rmxnb"]
+[ext_resource type="Script" uid="uid://qmmgf5dngcol" path="res://scripts/mob/player/remote_player.gd" id="1_orxjf"]
+[ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://resourses/mob/player/player_head.tres" id="2_rmxnb"]
+[ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://resourses/mob/player/player_body.tres" id="3_rmxnb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_orxjf"]
 size = Vector3(0.8, 1.8, 0.8)

@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://cf8cp7qd2aamx"]
 
-[ext_resource type="Script" uid="uid://bqsnh21fed01d" path="res://scripts/player/player.gd" id="1_8afob"]
-[ext_resource type="Script" uid="uid://bln7r7bllxk8p" path="res://scripts/player/components/health_component.gd" id="2_75vfm"]
-[ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://resourses/player/player_body.tres" id="2_h17s1"]
-[ext_resource type="Script" uid="uid://c7ue86ob1yk04" path="res://scripts/player/player_state_machine.gd" id="2_p47bc"]
-[ext_resource type="Script" uid="uid://bwtu1yst5qy4o" path="res://scripts/player/states/idle_player_state.gd" id="3_75vfm"]
-[ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://resourses/player/player_head.tres" id="3_h17s1"]
-[ext_resource type="Script" uid="uid://qn644bshd6ci" path="res://scripts/player/states/move_player_state.gd" id="4_0owmy"]
-[ext_resource type="Script" uid="uid://dldqyhepmtyek" path="res://scripts/player/camera_controller.gd" id="5_je7p5"]
-[ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/player/states/airborne_player_state.gd" id="5_qek5x"]
+[ext_resource type="Script" uid="uid://bqsnh21fed01d" path="res://scripts/mob/player/player.gd" id="1_8afob"]
+[ext_resource type="Script" uid="uid://bln7r7bllxk8p" path="res://scripts/mob/player/components/health_component.gd" id="2_75vfm"]
+[ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://resourses/mob/player/player_body.tres" id="2_h17s1"]
+[ext_resource type="Script" uid="uid://c7ue86ob1yk04" path="res://scripts/mob/player/player_state_machine.gd" id="2_p47bc"]
+[ext_resource type="Script" uid="uid://bwtu1yst5qy4o" path="res://scripts/mob/player/states/idle_player_state.gd" id="3_75vfm"]
+[ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://resourses/mob/player/player_head.tres" id="3_h17s1"]
+[ext_resource type="Script" uid="uid://qn644bshd6ci" path="res://scripts/mob/player/states/move_player_state.gd" id="4_0owmy"]
+[ext_resource type="Script" uid="uid://dldqyhepmtyek" path="res://scripts/mob/player/camera_controller.gd" id="5_je7p5"]
+[ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/mob/player/states/airborne_player_state.gd" id="5_qek5x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_75vfm"]
 size = Vector3(0.8, 1.8, 0.8)
@@ -59,7 +59,6 @@ unique_name_in_owner = true
 [node name="HealthComponent" type="Node" parent="Components" unique_id=1404851935]
 unique_name_in_owner = true
 script = ExtResource("2_75vfm")
-metadata/_custom_type_script = "uid://bln7r7bllxk8p"
 
 [node name="Controllers" type="Node" parent="." unique_id=1653266133]
 
@@ -75,14 +74,11 @@ metadata/_custom_type_script = "uid://dtcdg2c0ofgkv"
 [node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" unique_id=730521090 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("3_75vfm")
 state_machine = NodePath("..")
-metadata/_custom_type_script = "uid://dsdcsxxnumvnh"
 
 [node name="MovePlayerState" type="Node" parent="PlayerStateMachine" unique_id=34403276 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("4_0owmy")
 state_machine = NodePath("..")
-metadata/_custom_type_script = "uid://dsdcsxxnumvnh"
 
 [node name="AirbornePlayerState" type="Node" parent="PlayerStateMachine" unique_id=1502210134 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("5_qek5x")
 state_machine = NodePath("..")
-metadata/_custom_type_script = "uid://dsdcsxxnumvnh"

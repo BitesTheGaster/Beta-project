@@ -1,10 +1,8 @@
 class_name Player
-extends CharacterBody3D
+extends Mob
 
 
 signal set_block(id: int)
-
-var stats: PlayerStats = preload("res://resourses/player/player_default_stats.tres")
 
 @onready var camera_pivot_x: Node3D = %CameraPivotX
 @onready var camera_pivot_y: Node3D = %CameraPivotY
@@ -18,7 +16,7 @@ var stats: PlayerStats = preload("res://resourses/player/player_default_stats.tr
 var current_block: int = 1
 
 func _ready() -> void:
-	stats.max_health = health.max_health
+	#stats.max_health = health.max_health
 	health.health_changed.emit(health.current_health, health.max_health)
 
 
@@ -38,11 +36,6 @@ func _process(delta: float) -> void:
 		current_block = 2
 	if Input.is_action_just_pressed("slot3"):
 		current_block = 3
-
-
-func apply_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
 
 
 func get_camera_rotation() -> Vector3:
