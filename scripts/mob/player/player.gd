@@ -20,21 +20,31 @@ func _ready() -> void:
 	health.health_changed.emit(health.current_health, health.max_health)
 
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("attack"):
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("attack"):
 		raycast.force_raycast_update()
 		var target = raycast.get_collider()
 		if target is RemotePlayer:
-			health.take_damage.rpc_id(target.get_multiplayer_authority(), 1)
+			health.take_damage.rpc_id(target.get_multiplayer_authority(),
+					10, camera_pivot_x.global_position)
 		else:
 			set_block.emit(0)
-	if Input.is_action_just_pressed("use"):
+	if event.is_action_pressed("use"):
 		set_block.emit(current_block)
-	if Input.is_action_just_pressed("slot1"):
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	if event.is_action_pressed("slot1"):
 		current_block = 1
-	if Input.is_action_just_pressed("slot2"):
+	if event.is_action_pressed("slot2"):
 		current_block = 2
-	if Input.is_action_just_pressed("slot3"):
+	if event.is_action_pressed("slot3"):
 		current_block = 3
 
 
@@ -44,3 +54,7 @@ func get_camera_rotation() -> Vector3:
 		camera_pivot_y.rotation.y,
 		0
 	)
+
+
+func _on_player_damaged(source: Vector3) -> void:
+	set_knockback((global_position-source)*100)

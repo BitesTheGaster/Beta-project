@@ -82,3 +82,5 @@ state_machine = NodePath("..")
 [node name="AirbornePlayerState" type="Node" parent="PlayerStateMachine" unique_id=1502210134 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("5_qek5x")
 state_machine = NodePath("..")
+
+[connection signal="damaged" from="Components/HealthComponent" to="." method="_on_player_damaged"]

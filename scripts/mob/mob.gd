@@ -31,6 +31,7 @@ func _apply_gravity(delta: float) -> void:
 func _apply_knockback(delta: float) -> void:
 	if knockback_velocity.length() > 0.1:
 		velocity.x += knockback_velocity.x * delta
+		velocity.y += knockback_velocity.y * delta
 		velocity.z += knockback_velocity.z * delta
 		knockback_velocity = knockback_velocity.lerp(Vector3.ZERO, mob_stats.knockback_decay * delta)
 
