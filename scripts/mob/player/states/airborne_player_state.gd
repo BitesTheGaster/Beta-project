@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func update(delta: float) -> void:
 	# State transitions
-	if player.is_on_floor():
+	if player.is_on_floor:
 		if is_moving():
 			state_machine.change_state("move")
 		else:

@@ -10,15 +10,15 @@
 [ext_resource type="Script" uid="uid://dldqyhepmtyek" path="res://scripts/mob/player/camera_controller.gd" id="5_je7p5"]
 [ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/mob/player/states/airborne_player_state.gd" id="5_qek5x"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_75vfm"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5gtgg"]
 size = Vector3(0.8, 1.8, 0.8)
 
-[node name="Player" type="CharacterBody3D" unique_id=1196062079 groups=["Player"]]
+[node name="Player" type="StaticBody3D" unique_id=1402932853 groups=["Player"]]
 script = ExtResource("1_8afob")
+metadata/_custom_type_script = "uid://c7kf83a48xk68"
 
-[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=149652403]
-unique_name_in_owner = true
-shape = SubResource("BoxShape3D_75vfm")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=405622476]
+shape = SubResource("BoxShape3D_5gtgg")
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=1469030809]
 unique_name_in_owner = true
@@ -39,6 +39,7 @@ margin = 0.02
 
 [node name="Camera" type="Camera3D" parent="CameraPivotY/CameraPivotX/CameraSpringArm" unique_id=959529958]
 unique_name_in_owner = true
+current = true
 fov = 90.0
 
 [node name="VoxelViewer" type="VoxelViewer" parent="CameraPivotY/CameraPivotX/CameraSpringArm/Camera" unique_id=1948795317]

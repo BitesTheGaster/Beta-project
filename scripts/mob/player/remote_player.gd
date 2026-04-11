@@ -1,5 +1,5 @@
 class_name RemotePlayer
-extends CharacterBody3D
+extends Mob
 ##
 
 

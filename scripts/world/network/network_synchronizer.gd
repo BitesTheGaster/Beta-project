@@ -78,6 +78,7 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		players_container.add_child(player)
 		
 		world.local_player = player
+		world.local_player.voxel_terrain = world.voxel_terrain
 		world.local_player.set_block.connect(world.block_manager.on_player_set_block)
 		world.local_player.health.died.connect(players_container.on_player_death)
 		local_player_spawned.emit(world.local_player)
