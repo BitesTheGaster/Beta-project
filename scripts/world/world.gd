@@ -11,3 +11,8 @@ var blocks_queue: Dictionary[Vector3i, int] = {}
 @onready var voxel_terrain: VoxelTerrain = %VoxelTerrain
 @onready var block_manager: BlockManager = %BlockManager
 @onready var network_synchronizer: NetworkSynchronizer = %NetworkSynchronizer
+
+
+func _physics_process(delta: float) -> void:
+	for player in spawned_players.values():
+		local_player.interact_with_mob(player)

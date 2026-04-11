@@ -7,7 +7,7 @@ signal local_player_spawned(local_player: Player)
 
 const PLAYER_SPAWN_POS: Vector3 = Vector3(0, 128, 0)
 
-@export var sync_rate: float = 0.03
+@export var sync_rate: float = 0.025
 
 var sync_timer: float = 0.0
 

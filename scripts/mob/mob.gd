@@ -16,11 +16,13 @@ var knockback_velocity: Vector3
 var box_mover := VoxelBoxMover.new()
 var voxel_terrain: VoxelTerrain
 var is_on_floor: bool = false
+var is_jumping: bool = false
 
 var velocity := Vector3.ZERO
 var motion := Vector3.ZERO
 var prev_motion := Vector3.ZERO
 
+var _is_gravity_enabled: bool = true
 
 func _ready() -> void:
 	box_mover.set_collision_mask(1)
@@ -29,6 +31,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	mob_process(delta)
+
+
+func mob_process(delta: float) -> void:
 	if not mob_stats:
 		return
 	motion = velocity * delta
@@ -49,7 +55,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _apply_gravity(delta: float) -> void:
-	velocity.y -= 20.0 * mob_stats.gravity_multiplier * delta
+	if _is_gravity_enabled:
+		velocity.y -= 20.0 * mob_stats.gravity_multiplier * delta
 
 
 func _apply_knockback(delta: float) -> void:
@@ -86,6 +93,7 @@ func process_air_movement(delta: float) -> void:
 
 func jump() -> void:
 	if is_on_floor:
+		is_jumping = true
 		is_on_floor = false
 		velocity.y = mob_stats.jump_velocity
 
@@ -109,9 +117,41 @@ func move_and_slide() -> void:
 func update_state(delta: float) -> void:
 	if absf(motion.y) < 0.001 and prev_motion.y < -0.001:
 		landed.emit(prev_motion)
+		is_jumping = false
 		is_on_floor = true
 	
 	if box_mover.has_stepped_up():
 		is_on_floor = true
 	elif absf(motion.y) > 0.001:
 		is_on_floor = false
+	if motion.y > 0.001:
+		is_jumping = false
+
+
+func interact_with_mob(target: Mob) -> void:
+	var target_aabb := target.mob_aabb
+	target_aabb.position += target.global_position
+	var my_aabb := mob_aabb
+	my_aabb.position += global_position
+	
+	
+	if my_aabb.intersects(target_aabb):
+		var to_target = global_position - target.global_position
+		#to_target.y = 0
+		if to_target.length() > 0.01:
+			if absf(to_target.y) < 1.0:
+				to_target = to_target.normalized()
+				var push_strength = 0.25
+				velocity.x += to_target.x * push_strength
+				velocity.z += to_target.z * push_strength
+			elif not is_jumping and to_target.y > 0:
+				velocity.y = 0
+				is_on_floor = true
+
+
+func enable_gravity() -> void:
+	_is_gravity_enabled = true
+
+
+func disable_gravity() -> void:
+	_is_gravity_enabled = false
