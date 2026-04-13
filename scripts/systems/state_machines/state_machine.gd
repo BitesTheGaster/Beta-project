@@ -29,6 +29,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	current_state.update_input(event)
 
 
+func _unhandled_key_input(event: InputEvent) -> void:
+	current_state.update_key_input(event)
+
+
 func change_state(new_state: String):
 	if not states.has(new_state):
 		push_error("State not found: " + new_state)

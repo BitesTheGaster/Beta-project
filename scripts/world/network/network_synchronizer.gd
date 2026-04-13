@@ -7,7 +7,7 @@ signal local_player_spawned(local_player: Player)
 
 const PLAYER_SPAWN_POS: Vector3 = Vector3(0, 128, 0)
 
-@export var sync_rate: float = 0.03
+@export var sync_rate: float = 0.025
 
 var sync_timer: float = 0.0
 
@@ -78,8 +78,9 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		players_container.add_child(player)
 		
 		world.local_player = player
+		world.local_player.voxel_terrain = world.voxel_terrain
 		world.local_player.set_block.connect(world.block_manager.on_player_set_block)
-		world.local_player.health.died.connect(world.on_player_death)
+		world.local_player.health.died.connect(players_container.on_player_death)
 		local_player_spawned.emit(world.local_player)
 		print("[GameWorld] Local player spawned: " + str(id))
 	else:

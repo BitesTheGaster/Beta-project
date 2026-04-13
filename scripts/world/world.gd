@@ -13,6 +13,6 @@ var blocks_queue: Dictionary[Vector3i, int] = {}
 @onready var network_synchronizer: NetworkSynchronizer = %NetworkSynchronizer
 
 
-func on_player_death():
-	local_player.position = network_synchronizer.PLAYER_SPAWN_POS
-	local_player.health.current_health = local_player.health.max_health
+func _physics_process(delta: float) -> void:
+	for player in spawned_players.values():
+		local_player.interact_with_mob(player)
