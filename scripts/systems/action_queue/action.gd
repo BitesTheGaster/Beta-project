@@ -1,0 +1,34 @@
+@abstract
+class_name Action
+extends RefCounted
+## Base class for every network action
+
+
+var sequence_id: int = 0
+var timestamp: float = 0.0
+var sender_id: int = 0
+
+
+func validate(context: Dictionary) -> ValidationResult:
+	return ValidationResult.new(true, "")
+
+
+func execute(world: Node) -> void:
+	pass
+
+
+func to_dict() -> Dictionary:
+	return {
+		"type": get_script().get_path(),
+		"seq": sequence_id,
+		"ts": timestamp,
+		"sender": sender_id
+	}
+
+
+@abstract
+func from_dict()
+
+
+func _get_action_type() -> String:
+	return get_script().get_path().get_file()

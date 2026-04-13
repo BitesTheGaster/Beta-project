@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if sit_on:
-		if is_jumping:
+		if is_jumping or not is_on_floor:
 			sit_on = null
 			enable_gravity()
 		else:

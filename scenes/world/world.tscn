@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cn0lw64ra1jcv" path="res://scripts/world/players_container.gd" id="6_j2gmx"]
 [ext_resource type="Script" uid="uid://bu6pjdpsfjsyl" path="res://scripts/world/managers/block_manager.gd" id="6_t5ptc"]
 [ext_resource type="Script" uid="uid://datvni4aio2eq" path="res://scripts/world/network/network_synchronizer.gd" id="8_1yooq"]
+[ext_resource type="Script" uid="uid://bb62s3e0ravsr" path="res://scripts/systems/action_queue/action_queue.gd" id="9_1yooq"]
 
 [node name="World" type="Node3D" unique_id=691141520]
 script = ExtResource("1_v5dby")
@@ -42,3 +43,6 @@ script = ExtResource("8_1yooq")
 unique_name_in_owner = true
 script = ExtResource("6_t5ptc")
 voxel_terrain = NodePath("../VoxelTerrain")
+
+[node name="ActionQueue" type="Node" parent="." unique_id=1258010672]
+script = ExtResource("9_1yooq")
