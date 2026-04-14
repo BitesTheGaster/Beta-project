@@ -27,3 +27,11 @@ static func from_dict(data: Dictionary) -> PlaceBlockAction:
 	)
 	action.block_id = data.get("block_id", 0)
 	return action
+
+
+func validate(context: Dictionary) -> ValidationResult:
+	return ValidationResult.ok()
+
+
+func execute(world: GameWorld) -> void:
+	pass

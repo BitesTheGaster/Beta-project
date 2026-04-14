@@ -4,16 +4,17 @@ extends Mob
 
 signal set_block(id: int)
 
+var queue: ActionQueue
+var sit_on: Mob
+# TEMP
+var current_block: int = 1
+
 @onready var camera_pivot_x: Node3D = %CameraPivotX
 @onready var camera_pivot_y: Node3D = %CameraPivotY
 @onready var health: HealthComponent = %HealthComponent
 @onready var raycast: RayCast3D = %Raycast
 @onready var camera_spring_arm: SpringArm3D = %CameraSpringArm
 @onready var body: MeshInstance3D = %Body
-
-var sit_on: Mob
-# TEMP
-var current_block: int = 1
 
 
 func _ready() -> void:
@@ -95,3 +96,15 @@ func interact_with_mob(target: Mob) -> void:
 					disable_gravity()
 				velocity.y = 0
 				is_on_floor = true
+
+# Just a test
+func _input(event):
+	if event.is_action_pressed("jump"):
+		var action = PlaceBlockAction.new()
+		action.position = Vector3i(0, 10, 0) # Поставь далеко от спавна
+		queue.submit(action, 
+			Callable(self, "_ok"), 
+			Callable(self, "_fail"))
+
+func _ok(a): print("Сервер разрешил!")
+func _fail(reason, a): print("Сервер отказал: ", reason)

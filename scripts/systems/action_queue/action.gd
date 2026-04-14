@@ -9,12 +9,12 @@ var timestamp: float = 0.0
 var sender_id: int = 0
 
 
-func validate(context: Dictionary) -> ValidationResult:
-	return ValidationResult.new(true, "")
+@abstract
+func validate(context: Dictionary) -> ValidationResult
 
 
-func execute(world: Node) -> void:
-	pass
+@abstract
+func execute(world: GameWorld) -> void
 
 
 func to_dict() -> Dictionary:
@@ -24,10 +24,6 @@ func to_dict() -> Dictionary:
 		"ts": timestamp,
 		"sender": sender_id
 	}
-
-
-@abstract
-func from_dict()
 
 
 func _get_action_type() -> String:
