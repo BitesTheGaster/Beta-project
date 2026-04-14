@@ -19,7 +19,7 @@ func execute(world: GameWorld) -> void
 
 func to_dict() -> Dictionary:
 	return {
-		"type": get_script().get_path(),
+		"type": _get_action_type(),
 		"seq": sequence_id,
 		"ts": timestamp,
 		"sender": sender_id

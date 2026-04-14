@@ -29,7 +29,7 @@ func rpc_receive_action(data: Dictionary) -> void:
 
 
 func _deserialize_action(type_str: String, data: Dictionary) -> Action:
-	if type_str == "PlaceBlockAction.gd":
+	if type_str == "place_block_action.gd":
 		return PlaceBlockAction.from_dict(data)
 	return null
 
