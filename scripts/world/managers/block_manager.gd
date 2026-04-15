@@ -57,15 +57,3 @@ func set_block_queue(id: int, pos: Vector3i) -> void:
 		#pos-Vector3(0.4, 0.9, 0.4),
 		#Vector3(0.8, 1.8, 0.8)
 	#)
-
-
-func execute_block_action(action: PlaceBlockAction) -> bool:
-	if not voxel_tool.is_area_editable(AABB(action.position, Vector3.ONE)):
-		return false
-	
-	voxel_tool.set_voxel(action.position, action.block_id)
-	
-	if multiplayer.is_server():
-		world.changed_blocks[action.position] = action.block_id
-	
-	return true

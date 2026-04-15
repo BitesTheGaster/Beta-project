@@ -38,7 +38,6 @@ func submit(
 		on_failure: Callable = Callable(),
 		target_peer: int = 1
 		) -> int:
-	# If server then execute without any checks
 	#if multiplayer.is_server():
 		#var seq_id = _next_sequence_id
 		#_next_sequence_id += 1

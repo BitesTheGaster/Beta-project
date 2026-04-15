@@ -10,17 +10,6 @@
 [ext_resource type="Script" uid="uid://datvni4aio2eq" path="res://scripts/world/network/network_synchronizer.gd" id="8_1yooq"]
 [ext_resource type="Script" uid="uid://bb62s3e0ravsr" path="res://scripts/systems/action_queue/action_queue.gd" id="9_1yooq"]
 [ext_resource type="Script" uid="uid://dhiyodiag0qd4" path="res://scripts/systems/action_queue/server_action_handler.gd" id="10_gb53w"]
-[ext_resource type="Script" uid="uid://byeodlxmmf3ia" path="res://scripts/systems/action_queue/validation/validation_rule.gd" id="11_dlabj"]
-[ext_resource type="Script" uid="uid://bu5i5lggx16vo" path="res://scripts/systems/action_queue/validation/distance_rule.gd" id="12_srmg5"]
-[ext_resource type="Script" uid="uid://crldcfijueb1c" path="res://scripts/systems/action_queue/validation/collision_rule.gd" id="13_srmg5"]
-
-[sub_resource type="Resource" id="Resource_umvgx"]
-script = ExtResource("12_srmg5")
-metadata/_custom_type_script = "uid://bu5i5lggx16vo"
-
-[sub_resource type="Resource" id="Resource_mxkvs"]
-script = ExtResource("13_srmg5")
-metadata/_custom_type_script = "uid://crldcfijueb1c"
 
 [node name="World" type="Node3D" unique_id=691141520]
 script = ExtResource("1_v5dby")
@@ -63,4 +52,3 @@ script = ExtResource("9_1yooq")
 [node name="ServerActionHandler" type="Node" parent="." unique_id=1644565696]
 unique_name_in_owner = true
 script = ExtResource("10_gb53w")
-validation_rules = Array[ExtResource("11_dlabj")]([SubResource("Resource_umvgx"), SubResource("Resource_mxkvs")])

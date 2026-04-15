@@ -3,10 +3,8 @@ extends Node
 ## Handle actions sent to server
 
 
-@export var validation_rules: Array[ValidationRule] = []
-
 @onready var block_manager: BlockManager = %BlockManager
-@onready var queue_manager: ActionQueue = %ActionQueue
+@onready var action_queue: ActionQueue = %ActionQueue
 @onready var world: GameWorld = get_parent()
 
 
@@ -20,7 +18,7 @@ func rpc_receive_action(data: Dictionary) -> void:
 		return
 
 	var context = _build_validation_context(multiplayer.get_remote_sender_id(), action)
-	var result = _validate(action, context)
+	var result = action.validate(context)
 
 	_send_result.rpc_id(multiplayer.get_remote_sender_id(), action.sequence_id, result.is_valid, result.reason)
 
@@ -38,7 +36,7 @@ func _deserialize_action(type_str: String, data: Dictionary) -> Action:
 func _build_validation_context(sender_id: int, action: Action) -> Dictionary:
 	var context: Dictionary = {
 			"sender_id": sender_id,
-				}
+			}
 	
 	if action is PlaceBlockAction:
 		context["spawned_players"] = world.spawned_players
@@ -47,14 +45,6 @@ func _build_validation_context(sender_id: int, action: Action) -> Dictionary:
 		context["target_position"] = action.get("position")
 	
 	return context
-
-
-func _validate(action: Action, context: Dictionary) -> ValidationResult:
-	for rule in validation_rules:
-		var res = rule.check(action, context)
-		if not res.is_valid:
-			return res
-	return ValidationResult.ok()
 
 
 func _get_player_pos(id: int) -> Vector3:
@@ -67,6 +57,6 @@ func _get_player_pos(id: int) -> Vector3:
 @rpc("authority", "call_local", "reliable", 1)
 func _send_result(seq_id: int, success: bool, reason: String) -> void:
 	if success:
-		queue_manager.confirm(seq_id)
+		action_queue.confirm(seq_id)
 	else:
-		queue_manager.reject(seq_id, reason)
+		action_queue.reject(seq_id, reason)
