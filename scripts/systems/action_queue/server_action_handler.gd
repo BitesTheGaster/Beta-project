@@ -3,14 +3,15 @@ extends Node
 ## Handle actions sent to server
 
 
-@export var queue_manager: ActionQueue
 @export var validation_rules: Array[ValidationRule] = []
 
+@onready var block_manager: BlockManager = %BlockManager
+@onready var queue_manager: ActionQueue = %ActionQueue
 @onready var world: GameWorld = get_parent()
 
 
 # Receives, checks and executes actions in world
-@rpc("any_peer", "call_remote", "reliable", 1)
+@rpc("any_peer", "call_local", "reliable", 1)
 func rpc_receive_action(data: Dictionary) -> void:
 	var type_str = data.get("type", "")
 	var action = _deserialize_action(type_str, data)
@@ -35,11 +36,17 @@ func _deserialize_action(type_str: String, data: Dictionary) -> Action:
 
 
 func _build_validation_context(sender_id: int, action: Action) -> Dictionary:
-	return {
-		"sender_id": sender_id,
-		"sender_position": _get_player_pos(sender_id),  # Твоя функция
-		"target_position": action.get("position")
-	}
+	var context: Dictionary = {
+			"sender_id": sender_id,
+				}
+	
+	if action is PlaceBlockAction:
+		context["spawned_players"] = world.spawned_players
+		context["local_player"] = world.local_player
+		context["sender_position"] = _get_player_pos(sender_id)
+		context["target_position"] = action.get("position")
+	
+	return context
 
 
 func _validate(action: Action, context: Dictionary) -> ValidationResult:
@@ -51,6 +58,8 @@ func _validate(action: Action, context: Dictionary) -> ValidationResult:
 
 
 func _get_player_pos(id: int) -> Vector3:
+	if id == multiplayer.get_unique_id():
+		return world.local_player.position
 	return world.spawned_players[id].position
 
 

@@ -2,9 +2,9 @@ class_name Player
 extends Mob
 
 
-signal set_block(id: int)
-
 var queue: ActionQueue
+var voxel_tool: VoxelTool
+
 var sit_on: Mob
 # TEMP
 var current_block: int = 1
@@ -38,12 +38,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		raycast.force_raycast_update()
 		var target = raycast.get_collider()
 		if target is RemotePlayer:
-			health.take_damage.rpc_id(target.get_multiplayer_authority(),
+			health.take_damage.rpc_id(target.peer_id,
 					10, camera_pivot_x.global_position)
 		else:
-			set_block.emit(0)
+			_submit_block_action(0)
 	if event.is_action_pressed("use"):
-		set_block.emit(current_block)
+		_submit_block_action(current_block)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -97,14 +97,40 @@ func interact_with_mob(target: Mob) -> void:
 				velocity.y = 0
 				is_on_floor = true
 
-# Just a test
-func _input(event):
-	if event.is_action_pressed("jump"):
-		var action = PlaceBlockAction.new()
-		action.position = Vector3i(0, 10, 0) # Поставь далеко от спавна
-		queue.submit(action, 
-			Callable(self, "_ok"), 
-			Callable(self, "_fail"))
 
-func _ok(a): print("Сервер разрешил!")
-func _fail(reason, a): print("Сервер отказал: ", reason)
+func _submit_block_action(block_id: int) -> void:
+	if not queue:
+		return
+	
+	var hit = _get_pointed_voxel()
+	if not hit:
+		return
+	
+	var target_pos = hit.position if block_id == 0 else hit.previous_position
+	
+	var action = PlaceBlockAction.new()
+	action.position = target_pos
+	action.block_id = block_id
+	
+	queue.submit(
+		action,
+		Callable(self, "_on_block_action_success"),
+		Callable(self, "_on_block_action_failure")
+	)
+
+
+func _on_block_action_success(a: PlaceBlockAction) -> void:
+	pass
+
+
+func _on_block_action_failure(reason: String, a: PlaceBlockAction) -> void:
+	print("Block not placed at ", a.position,": ", reason)
+
+
+func _get_pointed_voxel() -> VoxelRaycastResult:
+	if not voxel_tool:
+		return null
+	
+	var origin := camera_pivot_x.get_global_transform().origin
+	var forward := -camera_pivot_x.get_global_transform().basis.z.normalized()
+	return voxel_tool.raycast(origin, forward, 5)

@@ -34,4 +34,5 @@ func validate(context: Dictionary) -> ValidationResult:
 
 
 func execute(world: GameWorld) -> void:
-	pass
+	if world.block_manager:
+		world.block_manager.set_block.rpc(block_id, position)

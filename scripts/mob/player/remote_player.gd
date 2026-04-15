@@ -3,6 +3,7 @@ extends Mob
 ##
 
 
+var peer_id: int
 var target_position := Vector3.ZERO
 var predicted_velocity := Vector3.ZERO
 var interpolation_speed: float = 20.0

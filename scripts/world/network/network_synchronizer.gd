@@ -73,21 +73,20 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 	if id == multiplayer.get_unique_id():
 		var player: Player = player_scene.instantiate()
 		player.position = player_position
-		player.set_multiplayer_authority(id)
 		
 		players_container.add_child(player)
 		
 		world.local_player = player
 		world.local_player.voxel_terrain = world.voxel_terrain
-		world.local_player.set_block.connect(world.block_manager.on_player_set_block)
 		world.local_player.health.died.connect(players_container.on_player_death)
 		world.local_player.queue = world.action_queue
+		world.local_player.voxel_tool = world.voxel_terrain.get_voxel_tool()
 		local_player_spawned.emit(world.local_player)
 		print("[GameWorld] Local player spawned: " + str(id))
 	else:
 		var remote_player: RemotePlayer = remote_player_scene.instantiate()
 		remote_player.position = player_position
-		remote_player.set_multiplayer_authority(id)
+		remote_player.peer_id = id
 		
 		players_container.add_child(remote_player)
 		

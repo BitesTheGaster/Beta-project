@@ -31,7 +31,6 @@ var _next_sequence_id: int = 1
 @onready var world: GameWorld = get_parent()
 
 
-
 # Add action to queue
 func submit(
 		action: Action,
@@ -40,14 +39,14 @@ func submit(
 		target_peer: int = 1
 		) -> int:
 	# If server then execute without any checks
-	if multiplayer.is_server():
-		var seq_id = _next_sequence_id
-		_next_sequence_id += 1
-		action.sequence_id = seq_id
-		action.timestamp = Time.get_unix_time_from_system()
-		
-		_local_execute_and_respond(seq_id, action, on_success, on_failure)
-		return seq_id
+	#if multiplayer.is_server():
+		#var seq_id = _next_sequence_id
+		#_next_sequence_id += 1
+		#action.sequence_id = seq_id
+		#action.timestamp = Time.get_unix_time_from_system()
+		#
+		#_local_execute_and_respond(seq_id, action, on_success, on_failure)
+		#return seq_id
 	
 	# Check queue overflow
 	if _pending.size() >= max_pending:
