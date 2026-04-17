@@ -35,26 +35,15 @@ var _next_sequence_id: int = 1
 func submit(
 		action: Action,
 		on_success: Callable = Callable(),
-		on_failure: Callable = Callable(),
-		target_peer: int = 1
+		on_failure: Callable = Callable()
 		) -> int:
-	#if multiplayer.is_server():
-		#var seq_id = _next_sequence_id
-		#_next_sequence_id += 1
-		#action.sequence_id = seq_id
-		#action.timestamp = Time.get_unix_time_from_system()
-		#
-		#_local_execute_and_respond(seq_id, action, on_success, on_failure)
-		#return seq_id
 	
-	# Check queue overflow
 	if _pending.size() >= max_pending:
 		push_warning("Action queue full (%d/%d)" % [_pending.size(), max_pending])
 		if on_failure.is_valid():
 			on_failure.call("queue_full")
 		return -1
 	
-	# Create and send pending action to server
 	var seq_id = _next_sequence_id
 	_next_sequence_id += 1
 	action.sequence_id = seq_id
@@ -63,7 +52,7 @@ func submit(
 	var pending = PendingAction.new(action, on_success, on_failure)
 	_pending[seq_id] = pending
 	
-	world.server_action_handler.rpc_receive_action.rpc_id(target_peer, action.to_dict())
+	world.server_action_handler.rpc_receive_action.rpc_id(1, action.to_dict())
 	
 	action_sent.emit(seq_id, action._get_action_type())
 	
@@ -116,9 +105,3 @@ func _process(_delta: float) -> void:
 	
 	for seq_id in to_remove:
 		reject(seq_id, "timeout")
-
-
-# Host action execution
-func _local_execute_and_respond(seq_id: int, action: Action, ok: Callable, fail: Callable) -> void:
-	_pending[seq_id] = PendingAction.new(action, ok, fail)
-	confirm(seq_id)

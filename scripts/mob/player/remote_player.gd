@@ -3,14 +3,14 @@ extends Mob
 ##
 
 
-var peer_id: int
+var player_id: int
 var target_position := Vector3.ZERO
 var predicted_velocity := Vector3.ZERO
 var interpolation_speed: float = 20.0
 
-
 @onready var camera_pivot_x: Node3D = %CameraPivotX
 @onready var camera_pivot_y: Node3D = %CameraPivotY
+@onready var health: HealthComponent = %HealthComponent
 
 
 func _physics_process(delta):

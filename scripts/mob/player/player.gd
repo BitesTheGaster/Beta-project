@@ -4,8 +4,8 @@ extends Mob
 
 var queue: ActionQueue
 var voxel_tool: VoxelTool
-
 var sit_on: Mob
+
 # TEMP
 var current_block: int = 1
 
@@ -38,8 +38,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		raycast.force_raycast_update()
 		var target = raycast.get_collider()
 		if target is RemotePlayer:
-			health.take_damage.rpc_id(target.peer_id,
-					10, camera_pivot_x.global_position)
+			_submit_damage_action(target)
 		else:
 			_submit_block_action(0)
 	if event.is_action_pressed("use"):
@@ -134,3 +133,26 @@ func _get_pointed_voxel() -> VoxelRaycastResult:
 	var origin := camera_pivot_x.get_global_transform().origin
 	var forward := -camera_pivot_x.get_global_transform().basis.z.normalized()
 	return voxel_tool.raycast(origin, forward, 5)
+
+
+func _submit_damage_action(target: RemotePlayer) -> void:
+	if not queue: return
+	
+	var action = DamageAction.new()
+	action.target_id = target.player_id
+	action.damage = 10.0
+	action.source_position = camera_pivot_x.global_position
+	
+	queue.submit(
+		action,
+		Callable(self, "_on_damage_success"),
+		Callable(self, "_on_damage_failure")
+	)
+
+
+func _on_damage_success(a: DamageAction):
+	pass
+
+
+func _on_damage_failure(reason: String, a: DamageAction):
+	print("Player ", a.target_id, " not damaged: ", reason)

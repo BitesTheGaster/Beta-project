@@ -14,7 +14,7 @@ var sync_timer: float = 0.0
 @onready var player_scene = preload("res://scenes/player/player.tscn")
 @onready var remote_player_scene = preload("res://scenes/player/remote_player.tscn")
 @onready var world: GameWorld = get_parent()
-@onready var players_container: Node3D = %PlayersContainer
+@onready var players_container: PlayersContainer = %PlayersContainer
 
 
 func _ready() -> void:
@@ -76,19 +76,24 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		
 		players_container.add_child(player)
 		
+		player.health.player_id = id
+		player.voxel_terrain = world.voxel_terrain
+		player.health.died.connect(players_container.on_player_death)
+		player.queue = world.action_queue
+		player.voxel_tool = world.voxel_terrain.get_voxel_tool()
+		local_player_spawned.emit(player)
+		
 		world.local_player = player
-		world.local_player.voxel_terrain = world.voxel_terrain
-		world.local_player.health.died.connect(players_container.on_player_death)
-		world.local_player.queue = world.action_queue
-		world.local_player.voxel_tool = world.voxel_terrain.get_voxel_tool()
-		local_player_spawned.emit(world.local_player)
 		print("[GameWorld] Local player spawned: " + str(id))
 	else:
 		var remote_player: RemotePlayer = remote_player_scene.instantiate()
 		remote_player.position = player_position
-		remote_player.peer_id = id
+		remote_player.player_id = id
 		
 		players_container.add_child(remote_player)
+		
+		remote_player.health.player_id = id
+		remote_player.health.died.connect(players_container.on_player_death)
 		
 		world.spawned_players[id] = remote_player
 		print("[GameWorld] Player spawned: " + str(id))

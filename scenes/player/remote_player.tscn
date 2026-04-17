@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://qmmgf5dngcol" path="res://scripts/mob/player/remote_player.gd" id="1_orxjf"]
 [ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://resourses/mob/player/player_head.tres" id="2_rmxnb"]
 [ext_resource type="BoxMesh" uid="uid://cbq3wtfl2thdr" path="res://resourses/mob/player/player_body.tres" id="3_rmxnb"]
+[ext_resource type="Script" uid="uid://bln7r7bllxk8p" path="res://scripts/mob/components/health_component.gd" id="4_840kl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rmxnb"]
 size = Vector3(0.8, 1.8, 0.8)
@@ -27,3 +28,7 @@ mesh = ExtResource("2_rmxnb")
 [node name="Body" type="MeshInstance3D" parent="." unique_id=2047069798]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35000000000582077, 0)
 mesh = ExtResource("3_rmxnb")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=935440360]
+unique_name_in_owner = true
+script = ExtResource("4_840kl")

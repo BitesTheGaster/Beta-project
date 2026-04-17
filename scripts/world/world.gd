@@ -13,6 +13,7 @@ var blocks_queue: Dictionary[Vector3i, int] = {}
 @onready var network_synchronizer: NetworkSynchronizer = %NetworkSynchronizer
 @onready var action_queue: ActionQueue = %ActionQueue
 @onready var server_action_handler: ServerActionHandler = %ServerActionHandler
+@onready var players_container: PlayersContainer = %PlayersContainer
 
 
 func _physics_process(delta: float) -> void:
