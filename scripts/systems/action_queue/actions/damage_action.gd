@@ -12,20 +12,25 @@ var source_position: Vector3
 
 func to_dict() -> Dictionary:
 	var dict = super.to_dict()
+	
 	dict["target_id"] = target_id
 	dict["damage"] = damage
 	dict["source_position"] = source_position
+	
 	return dict
 
 
 static func from_dict(data: Dictionary) -> DamageAction:
 	var action = DamageAction.new()
+	
 	action.sequence_id = data.get("seq", 0)
 	action.timestamp = data.get("ts", 0.0)
 	action.sender_id = data.get("sender", 0)
+	
 	action.target_id = data.get("target_id", 0)
 	action.damage = data.get("damage", 10.0)
 	action.source_position = data.get("source_position", Vector3.ZERO)
+	
 	return action
 
 

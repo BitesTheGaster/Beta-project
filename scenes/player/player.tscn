@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bwtu1yst5qy4o" path="res://scripts/mob/player/states/idle_player_state.gd" id="3_75vfm"]
 [ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://resourses/mob/player/player_head.tres" id="3_h17s1"]
 [ext_resource type="Script" uid="uid://qn644bshd6ci" path="res://scripts/mob/player/states/move_player_state.gd" id="4_0owmy"]
+[ext_resource type="Script" uid="uid://dtlybsuho4d8f" path="res://scripts/mob/player/components/sync_component.gd" id="5_h17s1"]
 [ext_resource type="Script" uid="uid://dldqyhepmtyek" path="res://scripts/mob/player/camera_controller.gd" id="5_je7p5"]
 [ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/mob/player/states/airborne_player_state.gd" id="5_qek5x"]
 
@@ -60,6 +61,11 @@ unique_name_in_owner = true
 [node name="HealthComponent" type="Node" parent="Components" unique_id=1404851935]
 unique_name_in_owner = true
 script = ExtResource("2_75vfm")
+
+[node name="SyncComponent" type="Node" parent="Components" unique_id=870316464 node_paths=PackedStringArray("player")]
+unique_name_in_owner = true
+script = ExtResource("5_h17s1")
+player = NodePath("../..")
 
 [node name="Controllers" type="Node" parent="." unique_id=1653266133]
 

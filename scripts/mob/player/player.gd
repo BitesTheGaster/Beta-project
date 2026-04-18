@@ -110,6 +110,7 @@ func _submit_block_action(block_id: int) -> void:
 	var action = PlaceBlockAction.new()
 	action.position = target_pos
 	action.block_id = block_id
+	action.sender_id = multiplayer.get_unique_id()
 	
 	queue.submit(
 		action,
@@ -142,6 +143,7 @@ func _submit_damage_action(target: RemotePlayer) -> void:
 	action.target_id = target.player_id
 	action.damage = 10.0
 	action.source_position = camera_pivot_x.global_position
+	action.sender_id = multiplayer.get_unique_id()
 	
 	queue.submit(
 		action,

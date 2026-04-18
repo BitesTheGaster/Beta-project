@@ -34,6 +34,8 @@ func _deserialize_action(type_str: String, data: Dictionary) -> Action:
 		return PlaceBlockAction.from_dict(data)
 	elif type_str == "damage_action.gd":
 		return DamageAction.from_dict(data)
+	elif type_str == "sync_position_action.gd":
+		return SyncPositionAction.from_dict(data)
 	return null
 
 

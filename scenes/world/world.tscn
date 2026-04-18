@@ -36,9 +36,10 @@ run_stream_in_editor = false
 unique_name_in_owner = true
 script = ExtResource("6_j2gmx")
 
-[node name="NetworkSynchronizer" type="Node" parent="." unique_id=486761543]
+[node name="PlayerSpawner" type="Node" parent="PlayersContainer" unique_id=486761543 node_paths=PackedStringArray("world")]
 unique_name_in_owner = true
 script = ExtResource("8_1yooq")
+world = NodePath("../..")
 
 [node name="BlockManager" type="Node" parent="." unique_id=1093216749 node_paths=PackedStringArray("voxel_terrain")]
 unique_name_in_owner = true

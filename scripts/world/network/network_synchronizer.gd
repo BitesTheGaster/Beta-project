@@ -1,4 +1,4 @@
-class_name NetworkSynchronizer
+class_name PlayerSpawner
 extends Node
 ##
 
@@ -7,14 +7,10 @@ signal local_player_spawned(local_player: Player)
 
 const PLAYER_SPAWN_POS: Vector3 = Vector3(0, 128, 0)
 
-@export var sync_rate: float = 0.025
-
-var sync_timer: float = 0.0
+@export var world: GameWorld
 
 @onready var player_scene = preload("res://scenes/player/player.tscn")
 @onready var remote_player_scene = preload("res://scenes/player/remote_player.tscn")
-@onready var world: GameWorld = get_parent()
-@onready var players_container: PlayersContainer = %PlayersContainer
 
 
 func _ready() -> void:
@@ -24,21 +20,6 @@ func _ready() -> void:
 	
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-
-
-func _process(delta: float) -> void:
-	if not world.local_player:
-		return
-	
-	sync_timer += delta
-	if sync_timer >= sync_rate:
-		sync_timer = 0.0
-		_rpc_sync_position.rpc(
-				world.local_player.global_position,
-				world.local_player.rotation,
-				world.local_player.get_camera_rotation(),
-				world.local_player.velocity,
-		)
 
 
 func _on_peer_connected(id: int) -> void:
@@ -74,11 +55,11 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		var player: Player = player_scene.instantiate()
 		player.position = player_position
 		
-		players_container.add_child(player)
+		world.players_container.add_child(player)
 		
 		player.health.player_id = id
 		player.voxel_terrain = world.voxel_terrain
-		player.health.died.connect(players_container.on_player_death)
+		player.health.died.connect(world.players_container.on_player_death)
 		player.queue = world.action_queue
 		player.voxel_tool = world.voxel_terrain.get_voxel_tool()
 		local_player_spawned.emit(player)
@@ -90,10 +71,11 @@ func _spawn_player(id: int, player_position: Vector3 = PLAYER_SPAWN_POS) -> void
 		remote_player.position = player_position
 		remote_player.player_id = id
 		
-		players_container.add_child(remote_player)
+		world.players_container.add_child(remote_player)
 		
 		remote_player.health.player_id = id
-		remote_player.health.died.connect(players_container.on_player_death)
+		remote_player.health.died.connect(world.players_container.on_player_death)
+		remote_player.voxel_terrain = world.voxel_terrain
 		
 		world.spawned_players[id] = remote_player
 		print("[GameWorld] Player spawned: " + str(id))
@@ -104,13 +86,3 @@ func _delete_player(id: int) -> void:
 	world.spawned_players[id].queue_free()
 	world.spawned_players.erase(id)
 	print("[GameWorld] Player deleted: " + str(id))
-
-
-@rpc("any_peer", "call_remote", "unreliable")
-func _rpc_sync_position(pos: Vector3, rot: Vector3, camera_pivot_rot: Vector3, velocity: Vector3) -> void:
-	var sender_id: int = multiplayer.get_remote_sender_id()
-	world.spawned_players[sender_id].target_position = pos
-	world.spawned_players[sender_id].rotation = rot
-	world.spawned_players[sender_id].camera_pivot_x.rotation.x = camera_pivot_rot.x
-	world.spawned_players[sender_id].camera_pivot_y.rotation.y = camera_pivot_rot.y
-	world.spawned_players[sender_id].predicted_velocity = velocity

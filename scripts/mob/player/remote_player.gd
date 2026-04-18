@@ -16,3 +16,5 @@ var interpolation_speed: float = 20.0
 func _physics_process(delta):
 	global_position = global_position.lerp(target_position, interpolation_speed * delta)
 	velocity = predicted_velocity
+	
+	mob_process(delta)

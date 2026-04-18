@@ -11,8 +11,10 @@ var block_id: int = 0
 
 func to_dict() -> Dictionary:
 	var dict = super.to_dict()
+	
 	dict["position"] = position
 	dict["block_id"] = block_id
+	
 	return dict
 
 
