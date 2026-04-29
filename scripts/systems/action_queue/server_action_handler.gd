@@ -26,7 +26,6 @@ func rpc_receive_action(data: Dictionary) -> void:
 
 	if result.is_valid:
 		action.execute(world)
-		# _sync_block_to_all.rpc(action.position, action.block_id)
 
 
 func _deserialize_action(type_str: String, data: Dictionary) -> Action:
@@ -44,16 +43,17 @@ func _build_validation_context(sender_id: int, action: Action) -> Dictionary:
 			"sender_id": sender_id,
 			}
 	
-	if action is PlaceBlockAction:
-		context["spawned_players"] = world.spawned_players
-		context["local_player"] = world.local_player
-		context["sender_position"] = _get_player_pos(sender_id)
-		context["target_position"] = action.get("position")
-	elif action is DamageAction:
-		context["sender_position"] = _get_player_pos(sender_id)
-		context["target_position"] = _get_player_pos(action.target_id)
-		context["target_health"] = _get_player_health(action.target_id)
-		context["last_damage_time"] = 0.1
+	# Anti-cheat off
+	#if action is PlaceBlockAction:
+		#context["spawned_players"] = world.spawned_players
+		#context["local_player"] = world.local_player
+		#context["sender_position"] = _get_player_pos(sender_id)
+		#context["target_position"] = action.get("position")
+	#elif action is DamageAction:
+		#context["sender_position"] = _get_player_pos(sender_id)
+		#context["target_position"] = _get_player_pos(action.target_id)
+		#context["target_health"] = _get_player_health(action.target_id)
+		#context["last_damage_time"] = 0.1
 	return context
 
 

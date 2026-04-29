@@ -35,21 +35,22 @@ static func from_dict(data: Dictionary) -> DamageAction:
 
 
 func validate(context: Dictionary) -> ValidationResult:
-	# Distance check
-	var sender_pos: Vector3 = context.get("sender_position", Vector3.ZERO)
-	var target_pos: Vector3 = context.get("target_position", Vector3.ZERO)
-	if sender_pos.distance_to(target_pos) > max_distance:
-		return ValidationResult.invalid("too_far")
-	
-	# Is target alive
-	var target_health = context.get("target_health", -1)
-	if target_health <= 0:
-		return ValidationResult.invalid("target_dead")
-	
-	# Spam protection
-	var last_damage_time = context.get("last_damage_time", 0.0)
-	if timestamp - last_damage_time < min_damage_interval:
-		return ValidationResult.invalid("too_fast")
+	# Anti-cheat off
+	## Distance check
+	#var sender_pos: Vector3 = context.get("sender_position", Vector3.ZERO)
+	#var target_pos: Vector3 = context.get("target_position", Vector3.ZERO)
+	#if sender_pos.distance_to(target_pos) > max_distance:
+		#return ValidationResult.invalid("too_far")
+	#
+	## Is target alive
+	#var target_health = context.get("target_health", -1)
+	#if target_health <= 0:
+		#return ValidationResult.invalid("target_dead")
+	#
+	## Spam protection
+	#var last_damage_time = context.get("last_damage_time", 0.0)
+	#if timestamp - last_damage_time < min_damage_interval:
+		#return ValidationResult.invalid("too_fast")
 	
 	return ValidationResult.ok()
 
