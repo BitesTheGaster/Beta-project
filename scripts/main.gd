@@ -19,7 +19,7 @@ func _on_world_entered() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	world = world_scene.instantiate()
 	add_child(world)
-	world.network_synchronizer.local_player_spawned.connect(_on_local_player_spawned)
+	world.player_spawner.local_player_spawned.connect(_on_local_player_spawned)
 
 
 func _on_world_exited() -> void:

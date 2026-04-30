@@ -2,7 +2,12 @@ class_name Player
 extends Mob
 
 
-signal set_block(id: int)
+var queue: ActionQueue
+var voxel_tool: VoxelTool
+var sit_on: Mob
+
+# TEMP
+var current_block: int = 1
 
 @onready var camera_pivot_x: Node3D = %CameraPivotX
 @onready var camera_pivot_y: Node3D = %CameraPivotY
@@ -10,10 +15,6 @@ signal set_block(id: int)
 @onready var raycast: RayCast3D = %Raycast
 @onready var camera_spring_arm: SpringArm3D = %CameraSpringArm
 @onready var body: MeshInstance3D = %Body
-
-var sit_on: Mob
-# TEMP
-var current_block: int = 1
 
 
 func _ready() -> void:
@@ -23,7 +24,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if sit_on:
-		if is_jumping:
+		if is_jumping or not is_on_floor:
 			sit_on = null
 			enable_gravity()
 		else:
@@ -37,12 +38,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		raycast.force_raycast_update()
 		var target = raycast.get_collider()
 		if target is RemotePlayer:
-			health.take_damage.rpc_id(target.get_multiplayer_authority(),
-					10, camera_pivot_x.global_position)
+			_submit_damage_action(target)
 		else:
-			set_block.emit(0)
+			_submit_block_action(0)
 	if event.is_action_pressed("use"):
-		set_block.emit(current_block)
+		_submit_block_action(current_block)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -95,3 +95,66 @@ func interact_with_mob(target: Mob) -> void:
 					disable_gravity()
 				velocity.y = 0
 				is_on_floor = true
+
+
+func _submit_block_action(block_id: int) -> void:
+	if not queue:
+		return
+	
+	var hit = _get_pointed_voxel()
+	if not hit:
+		return
+	
+	var target_pos = hit.position if block_id == 0 else hit.previous_position
+	
+	var action = PlaceBlockAction.new()
+	action.position = target_pos
+	action.block_id = block_id
+	action.sender_id = multiplayer.get_unique_id()
+	
+	queue.submit(
+		action,
+		Callable(self, "_on_block_action_success"),
+		Callable(self, "_on_block_action_failure")
+	)
+
+
+func _on_block_action_success(a: PlaceBlockAction) -> void:
+	pass
+
+
+func _on_block_action_failure(reason: String, a: PlaceBlockAction) -> void:
+	print("Block not placed at ", a.position,": ", reason)
+
+
+func _get_pointed_voxel() -> VoxelRaycastResult:
+	if not voxel_tool:
+		return null
+	
+	var origin := camera_pivot_x.get_global_transform().origin
+	var forward := -camera_pivot_x.get_global_transform().basis.z.normalized()
+	return voxel_tool.raycast(origin, forward, 5)
+
+
+func _submit_damage_action(target: RemotePlayer) -> void:
+	if not queue: return
+	
+	var action = DamageAction.new()
+	action.target_id = target.player_id
+	action.damage = 10.0
+	action.source_position = camera_pivot_x.global_position
+	action.sender_id = multiplayer.get_unique_id()
+	
+	queue.submit(
+		action,
+		Callable(self, "_on_damage_success"),
+		Callable(self, "_on_damage_failure")
+	)
+
+
+func _on_damage_success(a: DamageAction):
+	pass
+
+
+func _on_damage_failure(reason: String, a: DamageAction):
+	print("Player ", a.target_id, " not damaged: ", reason)

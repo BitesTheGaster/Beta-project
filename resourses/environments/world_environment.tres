@@ -23,6 +23,6 @@ sky_material = SubResource("PanoramaSkyMaterial_1kqp1")
 [resource]
 background_mode = 2
 sky = SubResource("Sky_gcccd")
-sky_rotation = Vector3(0.2617993877991494, 0, 0.2617993877991494)
+sky_rotation = Vector3(0.2617994, 0, 0.2617994)
 tonemap_mode = 1
 fog_density = 0.1

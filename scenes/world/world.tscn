@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://cn0lw64ra1jcv" path="res://scripts/world/players_container.gd" id="6_j2gmx"]
 [ext_resource type="Script" uid="uid://bu6pjdpsfjsyl" path="res://scripts/world/managers/block_manager.gd" id="6_t5ptc"]
 [ext_resource type="Script" uid="uid://datvni4aio2eq" path="res://scripts/world/network/network_synchronizer.gd" id="8_1yooq"]
+[ext_resource type="Script" uid="uid://bb62s3e0ravsr" path="res://scripts/systems/action_queue/action_queue.gd" id="9_1yooq"]
+[ext_resource type="Script" uid="uid://dhiyodiag0qd4" path="res://scripts/systems/action_queue/server_action_handler.gd" id="10_gb53w"]
 
 [node name="World" type="Node3D" unique_id=691141520]
 script = ExtResource("1_v5dby")
@@ -34,11 +36,20 @@ run_stream_in_editor = false
 unique_name_in_owner = true
 script = ExtResource("6_j2gmx")
 
-[node name="NetworkSynchronizer" type="Node" parent="." unique_id=486761543]
+[node name="PlayerSpawner" type="Node" parent="PlayersContainer" unique_id=486761543 node_paths=PackedStringArray("world")]
 unique_name_in_owner = true
 script = ExtResource("8_1yooq")
+world = NodePath("../..")
 
 [node name="BlockManager" type="Node" parent="." unique_id=1093216749 node_paths=PackedStringArray("voxel_terrain")]
 unique_name_in_owner = true
 script = ExtResource("6_t5ptc")
 voxel_terrain = NodePath("../VoxelTerrain")
+
+[node name="ActionQueue" type="Node" parent="." unique_id=1258010672]
+unique_name_in_owner = true
+script = ExtResource("9_1yooq")
+
+[node name="ServerActionHandler" type="Node" parent="." unique_id=1644565696]
+unique_name_in_owner = true
+script = ExtResource("10_gb53w")

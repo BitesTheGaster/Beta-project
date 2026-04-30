@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Beta-project"
 run/main_scene="uid://cmsmryodib7w7"
-config/features=PackedStringArray("4.6", "Double Precision", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -23,6 +23,7 @@ NetworkManager="*uid://dgdbxlur4lqx8"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="viewport"
 
 [file_customization]
@@ -32,7 +33,8 @@ folder_colors={
 "res://assets/": "pink",
 "res://resourses/": "purple",
 "res://scenes/": "teal",
-"res://scripts/": "blue"
+"res://scripts/": "blue",
+"res://shaders/": "purple"
 }
 
 [global_group]
