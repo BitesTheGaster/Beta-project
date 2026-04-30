@@ -41,7 +41,7 @@ func submit(
 	if _pending.size() >= max_pending:
 		push_warning("Action queue full (%d/%d)" % [_pending.size(), max_pending])
 		if on_failure.is_valid():
-			on_failure.call("queue_full")
+			on_failure.call("queue_full", action)
 		return -1
 	
 	var seq_id = _next_sequence_id
