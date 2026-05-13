@@ -15,6 +15,8 @@ var current_block: int = 1
 @onready var raycast: RayCast3D = %Raycast
 @onready var camera_spring_arm: SpringArm3D = %CameraSpringArm
 @onready var body: MeshInstance3D = %Body
+@onready var block_action_submitter: BlockActionSubmitter = %BlockActionSubmitter
+@onready var damage_action_submitter: DamageActionSubmitter = %DamageActionSubmitter
 
 
 func _ready() -> void:
@@ -38,11 +40,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		raycast.force_raycast_update()
 		var target = raycast.get_collider()
 		if target is RemotePlayer:
-			_submit_damage_action(target)
+			damage_action_submitter.submit(target)
 		else:
-			_submit_block_action(0)
+			block_action_submitter.submit(0)
 	if event.is_action_pressed("use"):
-		_submit_block_action(current_block)
+		block_action_submitter.submit(current_block)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -95,66 +97,3 @@ func interact_with_mob(target: Mob) -> void:
 					disable_gravity()
 				velocity.y = 0
 				is_on_floor = true
-
-
-func _submit_block_action(block_id: int) -> void:
-	if not queue:
-		return
-	
-	var hit = _get_pointed_voxel()
-	if not hit:
-		return
-	
-	var target_pos = hit.position if block_id == 0 else hit.previous_position
-	
-	var action = PlaceBlockAction.new()
-	action.position = target_pos
-	action.block_id = block_id
-	action.sender_id = multiplayer.get_unique_id()
-	
-	queue.submit(
-		action,
-		Callable(self, "_on_block_action_success"),
-		Callable(self, "_on_block_action_failure")
-	)
-
-
-func _on_block_action_success(a: PlaceBlockAction) -> void:
-	pass
-
-
-func _on_block_action_failure(reason: String, a: PlaceBlockAction) -> void:
-	print("Block not placed at ", a.position,": ", reason)
-
-
-func _get_pointed_voxel() -> VoxelRaycastResult:
-	if not voxel_tool:
-		return null
-	
-	var origin := camera_pivot_x.get_global_transform().origin
-	var forward := -camera_pivot_x.get_global_transform().basis.z.normalized()
-	return voxel_tool.raycast(origin, forward, 5)
-
-
-func _submit_damage_action(target: RemotePlayer) -> void:
-	if not queue: return
-	
-	var action = DamageAction.new()
-	action.target_id = target.player_id
-	action.damage = 10.0
-	action.source_position = camera_pivot_x.global_position
-	action.sender_id = multiplayer.get_unique_id()
-	
-	queue.submit(
-		action,
-		Callable(self, "_on_damage_success"),
-		Callable(self, "_on_damage_failure")
-	)
-
-
-func _on_damage_success(a: DamageAction):
-	pass
-
-
-func _on_damage_failure(reason: String, a: DamageAction):
-	print("Player ", a.target_id, " not damaged: ", reason)

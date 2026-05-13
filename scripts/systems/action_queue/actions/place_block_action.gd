@@ -32,13 +32,12 @@ static func from_dict(data: Dictionary) -> PlaceBlockAction:
 
 
 func validate(context: Dictionary) -> ValidationResult:
-	# Anti-cheat off
-	## Distance check
-	#var sender_pos: Vector3 = context.get("sender_position", Vector3.ZERO)
-	#var target_vec = position
-	#
-	#if sender_pos.distance_to(target_vec) > max_distance:
-		#return ValidationResult.invalid("too_far")
+	# Distance check
+	var sender_pos: Vector3 = context.get("sender_position", Vector3.ZERO)
+	var target_vec = position
+	
+	if sender_pos.distance_to(target_vec) > max_distance:
+		return ValidationResult.invalid("too_far")
 	
 	# Collision check
 	if block_id == 0:

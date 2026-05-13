@@ -8,8 +8,10 @@
 [ext_resource type="BoxMesh" uid="uid://c1mkppimuhoif" path="res://resourses/mob/player/player_head.tres" id="3_h17s1"]
 [ext_resource type="Script" uid="uid://qn644bshd6ci" path="res://scripts/mob/player/states/move_player_state.gd" id="4_0owmy"]
 [ext_resource type="Script" uid="uid://dtlybsuho4d8f" path="res://scripts/mob/player/components/sync_component.gd" id="5_h17s1"]
-[ext_resource type="Script" uid="uid://dldqyhepmtyek" path="res://scripts/mob/player/camera_controller.gd" id="5_je7p5"]
+[ext_resource type="Script" uid="uid://dldqyhepmtyek" path="res://scripts/mob/player/controllers/camera_controller.gd" id="5_je7p5"]
 [ext_resource type="Script" uid="uid://drnhwhxpwt54t" path="res://scripts/mob/player/states/airborne_player_state.gd" id="5_qek5x"]
+[ext_resource type="Script" uid="uid://c17bv3253mrnb" path="res://scripts/mob/player/components/block_action_submitter.gd" id="6_fm80t"]
+[ext_resource type="Script" uid="uid://bvkagifyryp8t" path="res://scripts/mob/player/components/damage_action_submitter.gd" id="7_gx1jg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5gtgg"]
 size = Vector3(0.8, 1.8, 0.8)
@@ -65,6 +67,16 @@ script = ExtResource("2_75vfm")
 [node name="SyncComponent" type="Node" parent="Components" unique_id=870316464 node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 script = ExtResource("5_h17s1")
+player = NodePath("../..")
+
+[node name="BlockActionSubmitter" type="Node" parent="Components" unique_id=1384946408 node_paths=PackedStringArray("player")]
+unique_name_in_owner = true
+script = ExtResource("6_fm80t")
+player = NodePath("../..")
+
+[node name="DamageActionSubmitter" type="Node" parent="Components" unique_id=1444770972 node_paths=PackedStringArray("player")]
+unique_name_in_owner = true
+script = ExtResource("7_gx1jg")
 player = NodePath("../..")
 
 [node name="Controllers" type="Node" parent="." unique_id=1653266133]
